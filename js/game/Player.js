@@ -2,10 +2,10 @@
 //### Entity: Player
 //#############################################################################
 function Player() {
-    Phaser.Sprite.call(this, game, 0, 0, "player", 0);
+    Phaser.Sprite.call(this, game, 0, 0, 'player', 0);
     
-    this.vel = {x: 0, y:0};
-    this.acc = {x: 0, y:0};
+    this.vel = new Phaser.Point();
+    this.acc = new Phaser.Point();
     
     game.add.existing(this);
 }
@@ -15,29 +15,24 @@ Player.prototype = Object.create(Phaser.Sprite.prototype);
 Player.prototype.constructor = Player;
 
 Player.prototype.applyForce = function(x, y) {
-    this.acc.x += x;
-    this.acc.y += y;
+    this.acc.add(x, y);
 }
 
 Player.prototype.resetTo = function(x, y) {
-    this.acc.x = 0;
-    this.acc.y = 0;
-    this.vel.x = 0;
-    this.vel.y = 0;
+    this.acc.setTo(0, 0);
+    this.vel.setTo(0, 0);
     this.x = x;
     this.y = y;
 }
 
 Player.prototype.update = function() {
     // add acceleration
-    this.vel.x += this.acc.x;
-    this.vel.y += this.vel.y;
+    this.vel.add(this.acc.x, this.acc.y);
     
     // update position
     this.x += this.vel.x * deltaTime;
     this.y += this.vel.y * deltaTime;
     
     // reset acceleration
-    this.acc.x = 0;
-    this.acc.y = 0;
+    this.acc.setTo(0, 0);
 }

@@ -17,8 +17,8 @@ Game.prototype = Object.create(Phaser.State);
      * Executed once on page / game load.
      */
     p.init = function() {
-        this.player = new Player();
         this.border = new Border();
+        this.player = new Player();
         
         this.isGameStarted = false;
         
@@ -33,7 +33,7 @@ Game.prototype = Object.create(Phaser.State);
         this.isGameStarted = true; /// TODO: start game by user input
         
         // setup basic variables
-        this.speed = -30;
+        this.speed = -100;
         this.player.resetTo((CFG.WIDTH - this.player.width) / 2, 100);
         
         // speed -> move area
