@@ -19,7 +19,6 @@ Game.prototype = Object.create(Phaser.State);
     p.init = function() {
         this.player = new Player();
         this.border = new Border();
-        this.speed = -30;
         
         this.isGameStarted = false;
         
@@ -32,6 +31,10 @@ Game.prototype = Object.create(Phaser.State);
      */
     p.create = function() {
         this.isGameStarted = true; /// TODO: start game by user input
+        
+        // setup basic variables
+        this.speed = -30;
+        this.player.resetTo((CFG.WIDTH - this.player.width) / 2, 100);
         
         // speed -> move area
         this.border.applyForce(0, this.speed);
@@ -68,6 +71,13 @@ Game.prototype = Object.create(Phaser.State);
         
         // speed -> move area
         ///this.border.applyForce(0, this.speed);
+        
+        
+        
+        if(this.player.x < this.border.area.x)
+            this.player.resetTo(this.border.area.x, this.player.y);
+        else if(this.player.x + this.player.width > this.border.area.right)
+            this.player.resetTo(this.border.area.right - this.player.width, this.player.y);
     },
 
     /**

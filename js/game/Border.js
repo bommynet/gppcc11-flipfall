@@ -5,7 +5,7 @@ function Border() {
     
     this.spriteHeight = 100;
     
-    this.area = new Phaser.Rectangle(16, 0, CFG.WIDTH-16, CFG.HEIGHT);
+    this.area = new Phaser.Rectangle(16, 0, CFG.WIDTH-2*16, CFG.HEIGHT);
     
     this.sprites = [];
     for(let i=-1; i < (CFG.HEIGHT / this.spriteHeight + 1); i++) {
