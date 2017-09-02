@@ -19,7 +19,7 @@ Game.prototype = Object.create(Phaser.State);
     p.init = function() {
         this.player = new Player();
         this.border = new Border();
-        this.speed = -2;
+        this.speed = -30;
         
         this.isGameStarted = false;
         
@@ -32,6 +32,9 @@ Game.prototype = Object.create(Phaser.State);
      */
     p.create = function() {
         this.isGameStarted = true; /// TODO: start game by user input
+        
+        // speed -> move area
+        this.border.applyForce(0, this.speed);
         
         console.log("create done");
     },
@@ -64,7 +67,7 @@ Game.prototype = Object.create(Phaser.State);
         }
         
         // speed -> move area
-        this.border.applyForce(0, this.speed);
+        ///this.border.applyForce(0, this.speed);
     },
 
     /**
