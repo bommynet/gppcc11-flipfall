@@ -26,6 +26,7 @@ Preload.prototype = Object.create(Phaser.State);;
         //this.load.spritesheet("block",  "assets/blocks.png", 64, 64);
         this.load.image("border", "assets/border.png");
         this.load.image("backwall", "assets/background.png");
+        this.load.image("bumper", "assets/bumper.png");
     },
 
     // reaching this point, everything was loaded an we can start the game

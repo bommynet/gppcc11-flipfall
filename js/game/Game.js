@@ -19,6 +19,7 @@ Game.prototype = Object.create(Phaser.State);
     p.init = function() {
         this.border = new Border();
         this.player = new Player();
+        this.bumpers = [];
         
         this.gravitation = {x: 0, y: -80};
         
@@ -33,6 +34,7 @@ Game.prototype = Object.create(Phaser.State);
      */
     p.create = function() {
         this.isGameStarted = true; /// TODO: start game by user input
+        this.bumpers = [];
         
         // setup basic variables
         this.speed = -300;
@@ -56,6 +58,7 @@ Game.prototype = Object.create(Phaser.State);
         
         this.player.update();
         this.border.update();
+        this.bumpers.forEach(b => b.update());
         
         // input -> move player
         // moving left or right
@@ -75,6 +78,12 @@ Game.prototype = Object.create(Phaser.State);
         /// DEBUG PART [
         if(cursors.up.isDown) {
             this.border.applyForce(0, -this.border.vel.y * 2);
+        }
+        if(cursors.down.isDown) {
+            let bumper = new Bumper();
+            bumper.resetTo(CFG.WIDTH / 2, CFG.HEIGHT + 100);
+            bumper.setVelocity(this.border.vel.x, this.border.vel.y);
+            this.bumpers.push(bumper);
         }
         /// ]DEBUG PART
         
