@@ -21,7 +21,7 @@ Game.prototype = Object.create(Phaser.State);
         this.player = new Player();
         this.bumpers = [];
         
-        this.gravitation = {x: 0, y: -80};
+        this.grav = new Gravitation();
         
         this.isGameStarted = false;
         
@@ -41,7 +41,7 @@ Game.prototype = Object.create(Phaser.State);
         this.player.resetTo((CFG.WIDTH - this.player.width) / 2, 100);
         
         // limit speed
-        this.border.applyLimitY(this.speed);
+        this.grav.applyLimitY(this.speed);
         
         console.log("create done");
     },
@@ -56,46 +56,48 @@ Game.prototype = Object.create(Phaser.State);
         // don't update game if it's not started yet
         if(!this.isGameStarted) return;
         
-        this.player.update();
-        this.border.update();
-        this.bumpers.forEach(b => b.update());
         
+        //### UPDATE GRAVITY ##################################################
+        this.grav.update();
+        
+        
+        //### UPDATE OBJECTS POSITION #########################################
+        let scaledVelocityY = this.grav.getScaledVelocityY();
+        let scaledVelocityX = this.grav.getScaledVelocityX();
+        
+        this.player.moveBy(scaledVelocityX);
+        this.border.moveBy(scaledVelocityY);
+        this.bumpers.forEach(b => b.moveBy(scaledVelocityY));
+        
+        
+        //### HANDLE INPUT ####################################################
         // input -> move player
         // moving left or right
         // if not moving, then slow down 'til zero
         if(cursors.left.isDown) {
-            this.player.applyForce(-1, 0);
+            this.grav.applyForce(-5, 0);
         } else if(cursors.right.isDown) {
-            this.player.applyForce(1, 0);
+            this.grav.applyForce(5, 0);
         } else {
-            if(this.player.vel.x < 0)
-                this.player.applyForce(0.5, 0);
-            else if(this.player.vel.x > 0)
-                this.player.applyForce(-0.5, 0);
+            if(this.grav.vel.x < 0)
+                this.grav.applyForce(2.5, 0);
+            else if(this.grav.vel.x > 0)
+                this.grav.applyForce(-2.5, 0);
         }
         
         
-        /// DEBUG PART [
-        if(cursors.up.isDown) {
-            this.border.applyForce(0, -this.border.vel.y * 2);
-        }
-        if(cursors.down.isDown) {
-            let bumper = new Bumper();
-            bumper.resetTo(CFG.WIDTH / 2, CFG.HEIGHT + 100);
-            bumper.setVelocity(this.border.vel.x, this.border.vel.y);
-            this.bumpers.push(bumper);
-        }
-        /// ]DEBUG PART
-        
-        // speed -> move area
-        this.border.applyForce(0, this.gravitation.y * deltaTime);
-        
-        
-        
-        if(this.player.x < this.border.area.x)
+        //### COLLISIONS ######################################################
+        if(this.player.x < this.border.area.x) {
             this.player.resetTo(this.border.area.x, this.player.y);
-        else if(this.player.x + this.player.width > this.border.area.right)
+            this.grav.vel.x = 0;
+        } else if(this.player.x + this.player.width > this.border.area.right) {
             this.player.resetTo(this.border.area.right - this.player.width, this.player.y);
+            this.grav.vel.x = 0;
+        }
+        
+        
+        //### REMOVE DEAD OBJECTS #############################################
+        this.bumpers = this.bumpers.filter(b => !b.isDead);
     },
 
     /**

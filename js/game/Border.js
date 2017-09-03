@@ -37,35 +37,10 @@ function Border() {
 Border.prototype.constructor = Border;
 
 
-Border.prototype.applyForce = function(x, y) {
-    this.acc.x += x;
-    this.acc.y += y;
-}
 
-Border.prototype.applyLimitY = function(maxSpeedY) {
-    this.maxSpeedY = Math.abs(maxSpeedY);
-}
-
-Border.prototype.update = function() {
-    // add acceleration
-    this.vel.x += this.acc.x;
-    this.vel.y += this.acc.y;
-    
-    // limit speed
-    if(this.vel.y < -this.maxSpeedY)
-        this.vel.y = -this.maxSpeedY;
-    else if(this.vel.y > this.maxSpeedY)
-        this.vel.y = this.maxSpeedY;
-    
-    // update position
-    this.pos.x += this.vel.x * deltaTime;
-    this.pos.y += this.vel.y * deltaTime;
-    this.poshalf.x += this.vel.x * deltaTime * 0.5;
-    this.poshalf.y += this.vel.y * deltaTime * 0.5;
-    
-    // reset acceleration
-    this.acc.x = 0;
-    this.acc.y = 0;
+Border.prototype.moveBy = function(pixels) {
+    this.pos.y += pixels;
+    this.poshalf.y += pixels / 2;
     
     
     // update border sprite positions

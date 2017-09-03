@@ -23,7 +23,7 @@ Thema der GPPCC 11 - Thema 'Nach unten fallen'
     
     
 ## Steuerung und Bewegung
-Der Spieler (Kugel) kann nur nach rechts und links bewegt werden.
+Der Spieler (Kugel) kann nur nach rechts und links bewegt werden. (Zu Anfang per Pfeiltasten.)
 
 Da die Kugel permanent fallen wird, kann dies auch durch eine Aufwärtsbewegung des Hintergrunds erreicht werden. Die Kugel hat also einen festen y-Wert und der Hintergrund bewegt sich.
 
