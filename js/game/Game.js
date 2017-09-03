@@ -108,7 +108,16 @@ Game.prototype = Object.create(Phaser.State);
             if(distanceSquared < radiusSquared) {
                 // set player out of the bumper-area to avoid continous collisions
                 // and then add force
-                Gravitation.applyForce(0, 1000); /// TODO
+                let ply = new Phaser.Point(this.player.x, this.player.y);
+                let bmp = new Phaser.Point(bump.x, bump.y);
+                let dir = Phaser.Point.subtract(ply, bmp);
+                let nrm = Phaser.Point.normalize(dir);
+                
+                let force = new Phaser.Point();
+                force.copyFrom(nrm);
+                force.multiply(1000, -1000);
+                
+                Gravitation.applyForce(force.x, force.y);
             }
         }, this);
         
