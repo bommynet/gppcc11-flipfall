@@ -4,7 +4,7 @@
 function Border() {
     
     this.spriteHeight = 100;
-    this.bgspriteHeight = 700;
+    this.bgspriteHeight = 100;
     this.maxSpeedY = 0;
     
     // collision area

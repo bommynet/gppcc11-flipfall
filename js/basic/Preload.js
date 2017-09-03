@@ -23,10 +23,10 @@ Preload.prototype = Object.create(Phaser.State);;
         // load assets
         //this.load.pack("start", "assets/assets-pack.json");
         //this.load.pack("level", "assets/assets-pack.json");
-        //this.load.spritesheet("block",  "assets/blocks.png", 64, 64);
-        this.load.image("border", "assets/border.png");
-        this.load.image("backwall", "assets/background.png");
-        this.load.image("bumper", "assets/bumper.png");
+        this.load.spritesheet("player",  "assets/player.png", 49, 49);
+        this.load.spritesheet("bumper", "assets/bumper.png", 99, 99);
+        this.load.spritesheet("border", "assets/border.png", 16, 100);
+        this.load.spritesheet("backwall", "assets/background.png", 400, 100);
     },
 
     // reaching this point, everything was loaded an we can start the game
