@@ -49,3 +49,34 @@ var Gravitation = {
         return this.vel.x * deltaTime;
     }
 };
+
+//#############################################################################
+//### Logic: Spawner
+//#############################################################################
+var Spawner = {
+    currentTime: 0,
+    nextSpawnTime: 0,
+    
+    reset: function(spawntime) {
+        this.currentTime = 0;
+        this.nextSpawnTime = spawntime || 2;
+    },
+    
+    spawn: function() {
+        // spawn new object
+        if(this.currentTime >= this.nextSpawnTime) {
+            // reset timer
+            this.currentTime = 0;
+            // create object
+            let bumper = new Bumper();
+            bumper.resetTo(CFG.WIDTH / 2, CFG.HEIGHT + 100);
+            return bumper;
+        }
+        // or count timer
+        else {
+            this.currentTime += deltaTime;
+        }
+        
+        return null;
+    }
+};

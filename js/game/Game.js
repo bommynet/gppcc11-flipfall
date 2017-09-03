@@ -37,7 +37,9 @@ Game.prototype = Object.create(Phaser.State);
         // setup basic variables
         this.speed = -300;
         this.player.resetTo((CFG.WIDTH - this.player.width) / 2, 100);
+        
         Gravitation.reset();
+        Spawner.reset();
         
         // limit speed
         Gravitation.applyLimitY(this.speed);
@@ -56,8 +58,10 @@ Game.prototype = Object.create(Phaser.State);
         if(!this.isGameStarted) return;
         
         
-        //### UPDATE GRAVITY ##################################################
+        //### UPDATE SINGLETONS ###############################################
         Gravitation.update();
+        let obj = Spawner.spawn();
+        if(obj) this.bumpers.push(obj);
         
         
         //### UPDATE OBJECTS POSITION #########################################
