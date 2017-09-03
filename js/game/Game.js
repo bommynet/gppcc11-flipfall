@@ -92,10 +92,10 @@ Game.prototype = Object.create(Phaser.State);
         //### COLLISIONS ######################################################
         if(this.player.left < this.border.area.x) {
             this.player.resetTo(this.border.area.x + this.player.radius, this.player.y);
-            Gravitation.vel.x = 0;
+            Gravitation.vel.x *= -0.5;
         } else if(this.player.right > this.border.area.right) {
             this.player.resetTo(this.border.area.right - this.player.radius, this.player.y);
-            Gravitation.vel.x = 0;
+            Gravitation.vel.x *= -0.5;
         }
         
         this.bumpers.forEach(bump => {
@@ -106,6 +106,8 @@ Game.prototype = Object.create(Phaser.State);
             let radiusSquared = Math.pow(bump.radius + this.player.radius, 2);
             
             if(distanceSquared < radiusSquared) {
+                /// TODO: bumper flash, sound
+                
                 // set player out of the bumper-area to avoid continous collisions
                 // and then add force
                 let ply = new Phaser.Point(this.player.x, this.player.y);
