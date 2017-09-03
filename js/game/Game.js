@@ -21,8 +21,6 @@ Game.prototype = Object.create(Phaser.State);
         this.player = new Player();
         this.bumpers = [];
         
-        this.grav = new Gravitation();
-        
         this.isGameStarted = false;
         
         console.log("init done");
@@ -39,9 +37,10 @@ Game.prototype = Object.create(Phaser.State);
         // setup basic variables
         this.speed = -300;
         this.player.resetTo((CFG.WIDTH - this.player.width) / 2, 100);
+        Gravitation.reset();
         
         // limit speed
-        this.grav.applyLimitY(this.speed);
+        Gravitation.applyLimitY(this.speed);
         
         console.log("create done");
     },
@@ -58,12 +57,12 @@ Game.prototype = Object.create(Phaser.State);
         
         
         //### UPDATE GRAVITY ##################################################
-        this.grav.update();
+        Gravitation.update();
         
         
         //### UPDATE OBJECTS POSITION #########################################
-        let scaledVelocityY = this.grav.getScaledVelocityY();
-        let scaledVelocityX = this.grav.getScaledVelocityX();
+        let scaledVelocityY = Gravitation.getScaledVelocityY();
+        let scaledVelocityX = Gravitation.getScaledVelocityX();
         
         this.player.moveBy(scaledVelocityX);
         this.border.moveBy(scaledVelocityY);
@@ -75,24 +74,24 @@ Game.prototype = Object.create(Phaser.State);
         // moving left or right
         // if not moving, then slow down 'til zero
         if(cursors.left.isDown) {
-            this.grav.applyForce(-5, 0);
+            Gravitation.applyForce(-5, 0);
         } else if(cursors.right.isDown) {
-            this.grav.applyForce(5, 0);
+            Gravitation.applyForce(5, 0);
         } else {
-            if(this.grav.vel.x < 0)
-                this.grav.applyForce(2.5, 0);
-            else if(this.grav.vel.x > 0)
-                this.grav.applyForce(-2.5, 0);
+            if(Gravitation.vel.x < 0)
+                Gravitation.applyForce(2.5, 0);
+            else if(Gravitation.vel.x > 0)
+                Gravitation.applyForce(-2.5, 0);
         }
         
         
         //### COLLISIONS ######################################################
         if(this.player.x < this.border.area.x) {
             this.player.resetTo(this.border.area.x, this.player.y);
-            this.grav.vel.x = 0;
+            Gravitation.vel.x = 0;
         } else if(this.player.x + this.player.width > this.border.area.right) {
             this.player.resetTo(this.border.area.right - this.player.width, this.player.y);
-            this.grav.vel.x = 0;
+            Gravitation.vel.x = 0;
         }
         
         
