@@ -7,7 +7,12 @@ var game = new Phaser.Game(CFG.WIDTH, CFG.HEIGHT, Phaser.AUTO, "gameDiv");
 // global keyboard handler
 var cursors;
 
+var DEBUGOUT;
+
 window.onload = function() {
+    DEBUGOUT = document.getElementById('output');
+    
+    
 	// add all possible game states
 	game.state.add("Boot",     Boot);
 	game.state.add("Preload",  Preload);

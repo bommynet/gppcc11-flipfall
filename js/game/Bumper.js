@@ -6,6 +6,7 @@ function Bumper() {
     
     this.isDead = false;
     this.anchor.setTo(0.5, 0.5);
+    this.radius = this.width / 2;
     
     game.add.existing(this);
 }

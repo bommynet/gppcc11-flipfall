@@ -36,7 +36,7 @@ Game.prototype = Object.create(Phaser.State);
         
         // setup basic variables
         this.speed = -300;
-        this.player.resetTo((CFG.WIDTH - this.player.width) / 2, 100);
+        this.player.resetTo(CFG.WIDTH / 2, 100);
         
         Gravitation.reset();
         Spawner.reset();
@@ -90,17 +90,32 @@ Game.prototype = Object.create(Phaser.State);
         
         
         //### COLLISIONS ######################################################
-        if(this.player.x < this.border.area.x) {
-            this.player.resetTo(this.border.area.x, this.player.y);
+        if(this.player.left < this.border.area.x) {
+            this.player.resetTo(this.border.area.x + this.player.radius, this.player.y);
             Gravitation.vel.x = 0;
-        } else if(this.player.x + this.player.width > this.border.area.right) {
-            this.player.resetTo(this.border.area.right - this.player.width, this.player.y);
+        } else if(this.player.right > this.border.area.right) {
+            this.player.resetTo(this.border.area.right - this.player.radius, this.player.y);
             Gravitation.vel.x = 0;
         }
+        
+        this.bumpers.forEach(bump => {
+            // collide with bumper if distance between player and bumper is smaller than
+            // both radius summed
+            // Info: calculate with squared numbers to avoid high cpu usage
+            let distanceSquared = Math.pow(bump.x - this.player.x, 2) + Math.pow(bump.y - this.player.y, 2);
+            let radiusSquared = Math.pow(bump.radius + this.player.radius, 2);
+            
+            if(distanceSquared < radiusSquared) {
+                // set player out of the bumper-area to avoid continous collisions
+                // and then add force
+                Gravitation.applyForce(0, 1000); /// TODO
+            }
+        }, this);
         
         
         //### REMOVE DEAD OBJECTS #############################################
         this.bumpers = this.bumpers.filter(b => !b.isDead);
+        //DEBUGOUT.innerHTML = `Bumpers: ${this.bumpers.length}`;
     },
 
     /**
