@@ -61,7 +61,9 @@ Game.prototype = Object.create(Phaser.State);
         //### UPDATE SINGLETONS ###############################################
         Gravitation.update();
         let obj = Spawner.spawn();
-        if(obj) this.bumpers.push(obj);
+        if(obj) {
+            obj.forEach(o => this.bumpers.push(o), this);
+        }
         
         
         //### UPDATE OBJECTS POSITION #########################################

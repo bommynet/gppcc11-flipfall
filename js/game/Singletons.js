@@ -69,8 +69,12 @@ var Spawner = {
             this.currentTime = 0;
             // create object
             let bumper = new Bumper();
-            bumper.resetTo(CFG.WIDTH / 2, CFG.HEIGHT + 100);
-            return bumper;
+            bumper.resetTo(CFG.WIDTH / 4, CFG.HEIGHT + 100);
+            
+            let bumper2 = new Bumper();
+            bumper2.resetTo(CFG.WIDTH / 4 * 3, CFG.HEIGHT + 100);
+            
+            return [bumper,bumper2];
         }
         // or count timer
         else {
