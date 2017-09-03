@@ -20,6 +20,8 @@ Game.prototype = Object.create(Phaser.State);
         this.border = new Border();
         this.player = new Player();
         
+        this.gravitation = {x: 0, y: -80};
+        
         this.isGameStarted = false;
         
         console.log("init done");
@@ -33,11 +35,11 @@ Game.prototype = Object.create(Phaser.State);
         this.isGameStarted = true; /// TODO: start game by user input
         
         // setup basic variables
-        this.speed = -100;
+        this.speed = -300;
         this.player.resetTo((CFG.WIDTH - this.player.width) / 2, 100);
         
-        // speed -> move area
-        this.border.applyForce(0, this.speed);
+        // limit speed
+        this.border.applyLimitY(this.speed);
         
         console.log("create done");
     },
@@ -69,8 +71,15 @@ Game.prototype = Object.create(Phaser.State);
                 this.player.applyForce(-0.5, 0);
         }
         
+        
+        /// DEBUG PART [
+        if(cursors.up.isDown) {
+            this.border.applyForce(0, -this.border.vel.y * 2);
+        }
+        /// ]DEBUG PART
+        
         // speed -> move area
-        ///this.border.applyForce(0, this.speed);
+        this.border.applyForce(0, this.gravitation.y * deltaTime);
         
         
         

@@ -5,6 +5,7 @@ function Border() {
     
     this.spriteHeight = 100;
     this.bgspriteHeight = 700;
+    this.maxSpeedY = 0;
     
     // collision area
     this.area = new Phaser.Rectangle(16, 0, CFG.WIDTH-2*16, CFG.HEIGHT);
@@ -41,10 +42,20 @@ Border.prototype.applyForce = function(x, y) {
     this.acc.y += y;
 }
 
+Border.prototype.applyLimitY = function(maxSpeedY) {
+    this.maxSpeedY = Math.abs(maxSpeedY);
+}
+
 Border.prototype.update = function() {
     // add acceleration
     this.vel.x += this.acc.x;
     this.vel.y += this.acc.y;
+    
+    // limit speed
+    if(this.vel.y < -this.maxSpeedY)
+        this.vel.y = -this.maxSpeedY;
+    else if(this.vel.y > this.maxSpeedY)
+        this.vel.y = this.maxSpeedY;
     
     // update position
     this.pos.x += this.vel.x * deltaTime;
