@@ -84,3 +84,37 @@ var Spawner = {
         return null;
     }
 };
+
+//#############################################################################
+//### Logic: Score
+//#############################################################################
+var Score = {
+    score: 0,
+    factor: 1,
+    distanceCurrent: 0,
+    distanceMax: 0,
+    
+    reset: function() {
+        this.score = 0;
+        this.distanceMax = 0;
+        this.distanceCurrent = 0;
+        this.factor = 1;
+    },
+    
+    changeDistance: function(pixels) {
+        this.distanceCurrent += pixels;
+        
+        let diff = this.distanceCurrent - this.distanceMax;
+        
+        if(diff > 0) {
+            this.distanceMax = this.distanceCurrent;
+            this.score += diff * this.factor;
+        } else {
+            /// nothing to do?
+        }
+    },
+    
+    add: function(score) {
+        this.score += score;
+    }
+};

@@ -40,6 +40,7 @@ Game.prototype = Object.create(Phaser.State);
         
         Gravitation.reset();
         Spawner.reset();
+        Score.reset();
         
         // limit speed
         Gravitation.applyLimitY(this.speed);
@@ -73,6 +74,9 @@ Game.prototype = Object.create(Phaser.State);
         this.player.moveBy(scaledVelocityX);
         this.border.moveBy(scaledVelocityY);
         this.bumpers.forEach(b => b.moveBy(scaledVelocityY));
+        
+        Score.changeDistance(-scaledVelocityY);
+        DEBUGOUT.innerHTML = `dist max:${Score.distanceMax} <br> cur:${Score.distanceCurrent} <br> score:${Score.score}`
         
         
         //### HANDLE INPUT ####################################################
@@ -108,10 +112,12 @@ Game.prototype = Object.create(Phaser.State);
             let radiusSquared = Math.pow(bump.radius + this.player.radius, 2);
             
             if(distanceSquared < radiusSquared) {
-                /// TODO: bumper flash, sound
+                /// TODO: animation, sound, show score
                 
-                // set player out of the bumper-area to avoid continous collisions
-                // and then add force
+                // update score
+                Score.add(100);
+                
+                // let player bump of
                 let ply = new Phaser.Point(this.player.x, this.player.y);
                 let bmp = new Phaser.Point(bump.x, bump.y);
                 let dir = Phaser.Point.subtract(ply, bmp);
