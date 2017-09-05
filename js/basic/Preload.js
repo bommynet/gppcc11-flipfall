@@ -26,6 +26,7 @@ Preload.prototype = Object.create(Phaser.State);;
         this.load.spritesheet("player",  "assets/player.png", 49, 49);
         this.load.spritesheet("bumper", "assets/bumper.png", 99, 99);
         this.load.spritesheet("border", "assets/border.png", 16, 100);
+        //this.load.spritesheet("border", "assets/von_kati/Hintergrund.png", 8, 16);
         this.load.spritesheet("backwall", "assets/background.png", 400, 100);
     },
 

@@ -60,10 +60,17 @@ Game.prototype = Object.create(Phaser.State);
         
         
         //### UPDATE SINGLETONS ###############################################
+        // update 'physics'
         Gravitation.update();
+        
+        // update spawner and add objects to game
         let obj = Spawner.spawn();
         if(obj) {
-            obj.forEach(o => this.bumpers.push(o), this);
+            // if obj is set, it could be a single object or an array of objects
+            if(Array.isArray(obj))
+                obj.forEach(o => this.bumpers.push(o), this);
+            else
+                this.bumpers.push(obj);
         }
         
         
