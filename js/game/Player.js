@@ -4,7 +4,7 @@
 function Player() {
     Phaser.Sprite.call(this, game, 0, 0, 'player', 0);
     
-    this.radius = this.width / 2;
+    this.radius = CFG.PLAYER.radius;
     this.anchor.setTo(0.5, 0.5);
     
     game.add.existing(this);

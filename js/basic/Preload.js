@@ -23,7 +23,8 @@ Preload.prototype = Object.create(Phaser.State);;
         // load assets
         //this.load.pack("start", "assets/assets-pack.json");
         //this.load.pack("level", "assets/assets-pack.json");
-        this.load.spritesheet("player",  "assets/player.png", 49, 49);
+        //this.load.spritesheet("player",  "assets/player.png", 49, 49);
+        this.load.spritesheet("player",  "assets/"+CFG.PLAYER.file, CFG.PLAYER.width, CFG.PLAYER.height);
         this.load.spritesheet("bumper", "assets/bumper.png", 99, 99);
         this.load.spritesheet("border", "assets/border.png", 16, 100);
         //this.load.spritesheet("border", "assets/von_kati/Hintergrund.png", 8, 16);

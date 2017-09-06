@@ -103,10 +103,10 @@ Game.prototype = Object.create(Phaser.State);
         
         
         //### COLLISIONS ######################################################
-        if(this.player.left < this.border.area.x) {
+        if(this.player.x - this.player.radius < this.border.area.x) {
             this.player.resetTo(this.border.area.x + this.player.radius, this.player.y);
             Gravitation.vel.x *= -0.5;
-        } else if(this.player.right > this.border.area.right) {
+        } else if(this.player.x + this.player.radius > this.border.area.right) {
             this.player.resetTo(this.border.area.right - this.player.radius, this.player.y);
             Gravitation.vel.x *= -0.5;
         }
