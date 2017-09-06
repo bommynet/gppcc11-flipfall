@@ -72,12 +72,9 @@ var Spawner = {
             bumper.resetTo(CFG.WIDTH / 4, CFG.HEIGHT + 100);
             
             let bumper2 = new Bumper();
-            bumper2.resetTo(CFG.WIDTH / 4 * 3, CFG.HEIGHT + 100);
+            bumper2.resetTo(CFG.WIDTH / 4 * 3, CFG.HEIGHT + 200);
             
-            let bumper3 = new Bumper();
-            bumper3.resetTo(CFG.WIDTH / 2, CFG.HEIGHT + 300);
-            
-            return [bumper,bumper2,bumper3];
+            return [bumper,bumper2];
         }
         // or count timer
         else {

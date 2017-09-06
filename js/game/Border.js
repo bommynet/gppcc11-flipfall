@@ -49,10 +49,20 @@ Border.prototype.moveBy = function(pixels) {
     }, this);
     
     // reset border sprite positions, if range reached
-    if(this.sprites[0].sprite.y < this.sprites[0].start - this.sprites[0].sprite.height
+    /*if(this.sprites[0].sprite.y < this.sprites[0].start - this.sprites[0].sprite.height
       || this.sprites[0].sprite.y > this.sprites[0].start + this.sprites[0].sprite.height) {
         this.sprites.forEach(obj => {obj.sprite.y = obj.start;});
         this.pos.y = 0;
+    }*/
+    /// TODO: avoid 'jumping' of the border elements, if y is less/grater min/max position (still not working -.-)
+    if(this.sprites[0].sprite.y < this.sprites[0].start - this.sprites[0].sprite.height) {
+        let diff = (this.sprites[0].start - this.sprites[0].sprite.height) - this.sprites[0].sprite.y;
+        this.sprites.forEach(obj => {obj.sprite.y = obj.start - diff;});
+        this.pos.y = diff;
+    } else if(this.sprites[0].sprite.y > this.sprites[0].start + this.sprites[0].sprite.height) {
+        let diff = this.sprites[0].sprite.y - (this.sprites[0].start + this.sprites[0].sprite.height);
+        this.sprites.forEach(obj => {obj.sprite.y = obj.start + diff;});
+        this.pos.y = diff;
     }
     
     
