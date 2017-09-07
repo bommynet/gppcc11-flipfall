@@ -122,7 +122,7 @@ Game.prototype = Object.create(Phaser.State);
                 /// TODO: animation, sound, show score
                 
                 // update score
-                Score.add(100);
+                Score.add(Score.SCORE_BUMPER);
                 
                 // let player bump of
                 let ply = new Phaser.Point(this.player.x, this.player.y);

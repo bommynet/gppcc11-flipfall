@@ -89,6 +89,8 @@ var Spawner = {
 //### Logic: Score
 //#############################################################################
 var Score = {
+    SCORE_BUMPER: 10,
+    
     score: 0,
     factor: 1,
     distanceCurrent: 0,
@@ -108,7 +110,7 @@ var Score = {
         
         if(diff > 0) {
             this.distanceMax = this.distanceCurrent;
-            this.score += diff * this.factor;
+            this.score += diff / 10 * this.factor;
         } else {
             /// nothing to do?
         }
