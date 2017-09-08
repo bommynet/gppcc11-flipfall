@@ -1,11 +1,18 @@
 # '&lt;Flip Fall&gt;' f&uuml;r die Game++ #11 CC
 Thema der GPPCC 11 - Thema 'Nach unten fallen'
 
-## Idee meiner Frau
+## Die Idee widerwillens
+Eigentlich wollte ich die GPPCC11 für mich ausfallen lassen. Zur Zeit ist privat und beruflich so viel los, dass ich dafür kaum Zeit habe. Und eine Spielidee hatte ich auch nicht.
+
+Nun schau ich mir den [Start-Aufruf](http://www.youtube.com/watch?v=eH9CzGkYtSw) von LetsGameDev an, wobei mir meine Frau über die Schulter schaut. Bei der Abstimmung über das Thema kam dann ein "Juchu!", gefolgt von "Ich hab da ne Idee. Du musst das programmieren."
+
+Also verläuft die jetztige GPPCC für mich in völlig neuen Bahnen: nicht mehr als persönliches Geplänkel, sondern als Auftragsabreit mit fixem Termin. =D
+
+Aber nun die Idee:
 
 * Prinzip: Flipperkugel fällt nach unten
 * Ziel: Falle so tief du kannst
-* Hindernisse
+* Hindernisse, die den Spieler bremsen / ablenken / helfen oder das Spiel beenden
     * ~~Platten - an denen du abprallst (Tempo runter)~~
     * 'Bumper' - die dich weg schleudern (Tempo links, rechts, rauf / extrem beschleunigt)
     * Flipper - die dich wieder nach oben katapultieren (Hindernisse von unten ignorieren?)
