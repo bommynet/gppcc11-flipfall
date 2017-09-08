@@ -8,7 +8,7 @@ function Player() {
     this.anchor.setTo(0.5, 0.5);
     
     // add(identifier, [frames], fps, loop, framesNamedByNumbers)
-    this.animations.add('down', [0,1,2,3], 15, true, true);
+    this.animations.add('down', CFG.PLAYER.frames, 15, true, true);
     
     game.add.existing(this);
     this.animations.play('down');
