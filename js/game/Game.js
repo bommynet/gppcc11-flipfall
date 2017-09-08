@@ -103,6 +103,7 @@ Game.prototype = Object.create(Phaser.State);
         
         
         //### COLLISIONS ######################################################
+        // player -> borders
         if(this.player.x - this.player.radius < this.border.area.x) {
             this.player.resetTo(this.border.area.x + this.player.radius, this.player.y);
             Gravitation.vel.x *= -0.5;
@@ -111,6 +112,7 @@ Game.prototype = Object.create(Phaser.State);
             Gravitation.vel.x *= -0.5;
         }
         
+        // player -> bumper
         this.bumpers.forEach(bump => {
             // collide with bumper if distance between player and bumper is smaller than
             // both radius summed
