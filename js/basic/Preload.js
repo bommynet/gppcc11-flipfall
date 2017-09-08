@@ -29,7 +29,8 @@ Preload.prototype = Object.create(Phaser.State);;
         this.load.spritesheet("bumper", "assets/bumper_kati.png", 70, 70);
         this.load.spritesheet("border", "assets/border.png", 16, 100);
         //this.load.spritesheet("border", "assets/von_kati/Hintergrund.png", 8, 16);
-        this.load.spritesheet("backwall", "assets/background.png", 400, 100);
+        //this.load.spritesheet("backwall", "assets/background.png", 400, 100);
+        this.load.spritesheet("backwall", "assets/Hintergrund.png", 384, 128);
     },
 
     // reaching this point, everything was loaded an we can start the game
