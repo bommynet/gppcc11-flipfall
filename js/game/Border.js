@@ -39,46 +39,39 @@ Border.prototype.constructor = Border;
 
 
 Border.prototype.moveBy = function(pixels) {
-    this.pos.y += pixels;
-    this.poshalf.y += pixels / 2;
-    
-    
-    // update border sprite positions
+    // update border positions
     this.sprites.forEach(obj => {
-        obj.sprite.y = this.pos.y + obj.start;
-    }, this);
+        let newY = obj.sprite.y + pixels;
+        
+        if(pixels < 0) {
+            while(newY < obj.start - obj.sprite.height) {
+                newY += obj.sprite.height;
+            }
+        } else if(pixels > 0) {
+            while(newY > obj.start + obj.sprite.height) {
+                newY -= obj.sprite.height;
+            }
+        }
+        
+        obj.sprite.y = newY;
+    });
     
-    // reset border sprite positions, if range reached
-    /*if(this.sprites[0].sprite.y < this.sprites[0].start - this.sprites[0].sprite.height
-      || this.sprites[0].sprite.y > this.sprites[0].start + this.sprites[0].sprite.height) {
-        this.sprites.forEach(obj => {obj.sprite.y = obj.start;});
-        this.pos.y = 0;
-    }*/
-    /// TODO: avoid 'jumping' of the border elements, if y is less/grater min/max position (still not working -.-)
-    if(this.sprites[0].sprite.y < this.sprites[0].start - this.sprites[0].sprite.height) {
-        let diff = (this.sprites[0].start - this.sprites[0].sprite.height) - this.sprites[0].sprite.y;
-        this.sprites.forEach(obj => {obj.sprite.y = obj.start - diff;});
-        this.pos.y = diff;
-    } else if(this.sprites[0].sprite.y > this.sprites[0].start + this.sprites[0].sprite.height) {
-        let diff = this.sprites[0].sprite.y - (this.sprites[0].start + this.sprites[0].sprite.height);
-        this.sprites.forEach(obj => {obj.sprite.y = obj.start + diff;});
-        this.pos.y = diff;
-    }
-    
-    
-    // update background sprite positions
+    // update background positions
     this.bgsprites.forEach(obj => {
-        //obj.sprite.y = this.poshalf.y + obj.start;
-        obj.sprite.y = this.pos.y + obj.start;
-    }, this);
-    
-    // reset background sprite positions, if range reached
-    if(this.bgsprites[0].sprite.y < this.bgsprites[0].start - this.bgsprites[0].sprite.height
-      || this.bgsprites[0].sprite.y > this.bgsprites[0].start + this.bgsprites[0].sprite.height) {
-        this.bgsprites.forEach(obj => {obj.sprite.y = obj.start;});
-        //this.poshalf.y = 0;
-        this.pos.y = 0;
-    }
+        let newY = obj.sprite.y + pixels;
+        
+        if(pixels < 0) {
+            while(newY < obj.start - obj.sprite.height) {
+                newY += obj.sprite.height;
+            }
+        } else if(pixels > 0) {
+            while(newY > obj.start + obj.sprite.height) {
+                newY -= obj.sprite.height;
+            }
+        }
+        
+        obj.sprite.y = newY;
+    });
 }
 
 
