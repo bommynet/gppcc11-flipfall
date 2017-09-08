@@ -52,5 +52,9 @@ Verschiedene Objekte und Wände sollen den Spieler vom linearen Flug nach unten 
 <img src="readme/bumper.png" title="Bumper in Microsofts Pinball" style="float:right; margin: 0 0 0 7px">
 Ein solches Objekt soll den Spieler bei Kollision mit hohem Tempo wegschleudern, in die Richtung aus der er kam. Dabei soll eine Treffer-Animation für den Bumper abgespielt werden und der Spieler erhält einen festen Satz Punkte (derzeit 100) pro Berührung.
 
-### Stangen
+### Nails (TODO)
 Diese einfachen Stangen oder Nägel sind simple Hindernisse auf dem Spielfeld. Der Spieler wird davon abprallen wie an den Wänden und nicht besonders beschleunigt. Auch zusätzliche Animationen und Punktebonus sind nicht vorgesehen.
+
+### Slingshots (TODO)
+<img src="readme/slingshot.png" title="Bumper in Microsofts Pinball" style="float:right; margin: 0 0 0 7px">
+Ein Slingshot schießt den Spieler bei Berührung in eine bestimmte Richtung ab. Das Objekt wird dabei animiert und der Spieler bekommt einen festen Satz Punkte (evtl. 100).
