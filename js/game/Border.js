@@ -15,7 +15,7 @@ function Border() {
     for(let i=-1; i < (CFG.HEIGHT / this.bgspriteHeight + 1); i++) {
         let posY = i * this.bgspriteHeight;
         this.bgsprites.push({
-            sprite: game.add.sprite(0, posY, 'backwall'),
+            sprite: game.add.sprite(0, posY, 'backwall', 1),
             start: posY
         });
     }
@@ -68,14 +68,16 @@ Border.prototype.moveBy = function(pixels) {
     
     // update background sprite positions
     this.bgsprites.forEach(obj => {
-        obj.sprite.y = this.poshalf.y + obj.start;
+        //obj.sprite.y = this.poshalf.y + obj.start;
+        obj.sprite.y = this.pos.y + obj.start;
     }, this);
     
     // reset background sprite positions, if range reached
     if(this.bgsprites[0].sprite.y < this.bgsprites[0].start - this.bgsprites[0].sprite.height
       || this.bgsprites[0].sprite.y > this.bgsprites[0].start + this.bgsprites[0].sprite.height) {
         this.bgsprites.forEach(obj => {obj.sprite.y = obj.start;});
-        this.poshalf.y = 0;
+        //this.poshalf.y = 0;
+        this.pos.y = 0;
     }
 }
 
