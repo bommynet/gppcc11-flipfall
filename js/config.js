@@ -14,5 +14,9 @@ var CFG = {
         width: 108,
         height: 108,
         frames: [4,5,6,7]
+    },
+    
+    RADIUS: {
+        bumper: 40 / 2
     }
 };
