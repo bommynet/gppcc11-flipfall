@@ -82,10 +82,10 @@ var Spawner = {
             this.currentTime = 0;
             // create object
             let bumper = new Bumper();
-            bumper.resetTo(CFG.WIDTH / 4, CFG.HEIGHT + 100);
+            bumper.resetTo(CFG.AREA.width / 4 + CFG.AREA.border, CFG.HEIGHT + 100);
             
             let bumper2 = new Bumper();
-            bumper2.resetTo(CFG.WIDTH / 4 * 3, CFG.HEIGHT + 200);
+            bumper2.resetTo(CFG.AREA.width / 4 * 3 + CFG.AREA.border, CFG.HEIGHT + 200);
             
             return [bumper,bumper2];
         }

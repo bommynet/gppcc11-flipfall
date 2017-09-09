@@ -1,21 +1,24 @@
 //#############################################################################
-//### Entity: Border
+//### Entity: Area
 //#############################################################################
-function Border() {
+function Area() {
+    
+    this.left = CFG.AREA.border;
+    this.width = CFG.AREA.width;
     
     this.spriteHeight = 100;
     this.bgspriteHeight = 128;
     this.maxSpeedY = 0;
     
     // collision area
-    this.area = new Phaser.Rectangle(16, 0, CFG.WIDTH-2*16, CFG.HEIGHT);
+    this.area = new Phaser.Rectangle(this.left, 0, this.width, CFG.HEIGHT);
     
     // background sprites
     this.bgsprites = [];
     for(let i=-1; i < (CFG.HEIGHT / this.bgspriteHeight + 1); i++) {
         let posY = i * this.bgspriteHeight;
         this.bgsprites.push({
-            sprite: game.add.sprite(0, posY, 'backwall', 1),
+            sprite: game.add.sprite(this.left, posY, 'backwall', 1),
             start: posY
         });
     }
@@ -28,17 +31,12 @@ function Border() {
         
         this.sprites.push(left, right);
     }
-    
-    this.pos = {x: 0, y:0};
-    this.poshalf = {x: 0, y:0};
-    this.vel = {x: 0, y:0};
-    this.acc = {x: 0, y:0};
 }
-Border.prototype.constructor = Border;
+Area.prototype.constructor = Area;
 
 
 
-Border.prototype.moveBy = function(pixels) {
+Area.prototype.moveBy = function(pixels) {
     // update border positions
     this.sprites.forEach(obj => {
         let newY = obj.sprite.y + pixels;
@@ -74,14 +72,18 @@ Border.prototype.moveBy = function(pixels) {
     });
 }
 
+Area.prototype.getCenterX = function() {
+    return this.width / 2 + this.left;
+}
 
 
-Border.prototype.createSingleSpriteObject = function(positionId, isLeftBorder) {
+
+Area.prototype.createSingleSpriteObject = function(positionId, isLeftBorder) {
     let posY = positionId * this.spriteHeight;
-    let posX = (isLeftBorder ? 0 : CFG.WIDTH - 16);
+    let posX = (isLeftBorder ? 0 : this.left + this.width);
     
     return {
-        sprite: game.add.sprite(posX, posY, 'border'),
+        sprite: game.add.sprite(posX, posY, 'border', 0),
         start: posY
     }
     

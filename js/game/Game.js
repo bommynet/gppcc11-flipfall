@@ -17,7 +17,7 @@ Game.prototype = Object.create(Phaser.State);
      * Executed once on page / game load.
      */
     p.init = function() {
-        this.border = new Border();
+        this.area = new Area();
         this.player = new Player();
         this.bumpers = [];
         
@@ -36,7 +36,7 @@ Game.prototype = Object.create(Phaser.State);
         
         // setup basic variables
         this.speed = -300;
-        this.player.resetTo(CFG.WIDTH / 2, 100);
+        this.player.resetTo(this.area.getCenterX(), 100);
         
         Gravitation.reset();
         Spawner.reset();
@@ -79,7 +79,7 @@ Game.prototype = Object.create(Phaser.State);
         let scaledVelocityX = Gravitation.getScaledVelocityX();
         
         this.player.moveBy(scaledVelocityX);
-        this.border.moveBy(scaledVelocityY);
+        this.area.moveBy(scaledVelocityY);
         this.bumpers.forEach(b => b.moveBy(scaledVelocityY));
         
         Score.changeDistance(-scaledVelocityY);
@@ -104,11 +104,11 @@ Game.prototype = Object.create(Phaser.State);
         
         //### COLLISIONS ######################################################
         // player -> borders
-        if(this.player.x - this.player.radius < this.border.area.x) {
-            this.player.resetTo(this.border.area.x + this.player.radius, this.player.y);
+        if(this.player.x - this.player.radius < this.area.area.x) {
+            this.player.resetTo(this.area.area.x + this.player.radius, this.player.y);
             Gravitation.vel.x *= -0.5;
-        } else if(this.player.x + this.player.radius > this.border.area.right) {
-            this.player.resetTo(this.border.area.right - this.player.radius, this.player.y);
+        } else if(this.player.x + this.player.radius > this.area.area.right) {
+            this.player.resetTo(this.area.area.right - this.player.radius, this.player.y);
             Gravitation.vel.x *= -0.5;
         }
         

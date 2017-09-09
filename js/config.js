@@ -1,7 +1,13 @@
 // Konfiguration
 var CFG = {
-    WIDTH: 400,
+    WIDTH: 800,
     HEIGHT: 700,
+    
+    AREA: {
+        width: 384,
+        height: 700,
+        border: 24
+    },
     
     PLAYER: {
 //        file: 'player_kati.png',
