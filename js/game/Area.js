@@ -7,7 +7,7 @@ function Area() {
     this.width = CFG.AREA.width;
     
     this.spriteHeight = 100;
-    this.bgspriteHeight = 128;
+    this.bgspriteHeight = 700;
     this.maxSpeedY = 0;
     
     // collision area
@@ -25,12 +25,12 @@ function Area() {
     
     // border sprites
     this.sprites = [];
-    for(let i=-1; i < (CFG.HEIGHT / this.spriteHeight + 1); i++) {
+    /*for(let i=-1; i < (CFG.HEIGHT / this.spriteHeight + 1); i++) {
         let left = this.createSingleSpriteObject(i, true);
         let right = this.createSingleSpriteObject(i, false);
         
         this.sprites.push(left, right);
-    }
+    }*/
 }
 Area.prototype.constructor = Area;
 

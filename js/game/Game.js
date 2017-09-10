@@ -17,6 +17,9 @@ Game.prototype = Object.create(Phaser.State);
      * Executed once on page / game load.
      */
     p.init = function() {
+        // add background as lowest layer
+        this.background = game.add.image(0, 0, "bg_game");
+        
         this.area = new Area();
         this.player = new Player();
         this.bumpers = [];
