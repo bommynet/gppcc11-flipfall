@@ -25,8 +25,9 @@ Aber nun die Idee:
     * mit Pfeiltasten o.ä.
     * Kugel wird in die gewünschte Richtung beschleunigt, nicht direkt bewegt
 * Bonus
-    * Combo-Punkte, wenn du fällst ohne etwas zu berühren
-    * Tiefen-Punkte, je weiter du kommst desto mehr Punkte gibts (Faktor oder feste Bonuspunkte?)
+    * ~~Combo-Punkte, wenn du fällst ohne etwas zu berühren~~
+    * Punkte-Faktor: je länger du fällst, ohne etwas zu berühren, desto mehr Punkte gibt es durchs Fallen
+    * Tiefen-Punkte, je weiter du kommst desto mehr Punkte gibts ~~(Faktor oder feste Bonuspunkte?)~~
     
     
 ## Steuerung und Bewegung

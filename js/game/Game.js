@@ -159,6 +159,9 @@ Game.prototype = Object.create(Phaser.State);
         this.gui.distance.update(Score.distanceShow)
         this.gui.factor.update(Score.factor)
         
+        // update maximum speed influenced by factor
+        Gravitation.applyLimitY(this.speed + this.speed / 10 * Score.factor);
+        
         
         //### REMOVE DEAD OBJECTS #############################################
         this.bumpers = this.bumpers.filter(b => !b.isDead);
