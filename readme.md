@@ -11,7 +11,8 @@ Also verläuft die jetztige GPPCC für mich in völlig neuen Bahnen: nicht mehr 
 Aber nun die Idee:
 
 * Prinzip: Flipperkugel fällt nach unten
-* Ziel: Falle so tief du kannst
+* Ziel: Falle so tief du kannst und hole die meisten Punkte
+* Ende: eine Spielrunde geht 2 Minuten
 * Hindernisse, die den Spieler bremsen / ablenken / helfen oder das Spiel beenden
     * ~~Platten - an denen du abprallst (Tempo runter)~~
     * 'Bumper' - die dich weg schleudern (Tempo links, rechts, rauf / extrem beschleunigt)
