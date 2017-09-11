@@ -104,22 +104,32 @@ var Spawner = {
 //#############################################################################
 var Score = {
     // point values for each object
-    SCORE_BUMPER: 100,
+    SCORE_BUMPER: 5,
     SCORE_NAIL: 0,
-    SCORE_SLINGSHOT: 100,
+    SCORE_SLINGSHOT: 10,
+    SCORE_DISTANCE: 100,
+    
+    // other important values
+    DISTANCE_FACTOR: 100,
+    FACTOR_INCREASE_DISTANCE: 1000,
+    FACTOR_MAX: 9,
     
     // variables
     score: 0,
     factor: 1,
+    factor_next_inc_in: 0,
     distanceCurrent: 0,
     distanceMax: 0,
+    distanceShow: 0,
     
     // reset variables for a new game
     reset: function() {
         this.score = 0;
         this.distanceMax = 0;
         this.distanceCurrent = 0;
+        this.distanceShow = 0;
         this.factor = 1;
+        this.factor_next_inc_in = this.FACTOR_INCREASE_DISTANCE;
     },
     
     // calculate current fall-distance, max-distance and add points based
@@ -130,8 +140,22 @@ var Score = {
         let diff = this.distanceCurrent - this.distanceMax;
         
         if(diff > 0) {
+            // real maximum distance
             this.distanceMax = this.distanceCurrent;
-            this.score += diff / 10 * this.factor;
+            
+            // scaled maximum distance
+            this.distanceShow = this.distanceMax / this.DISTANCE_FACTOR;
+            
+            // update score
+            this.score += diff / this.DISTANCE_FACTOR * this.SCORE_DISTANCE * this.factor;
+            
+            // update factor
+            this.factor_next_inc_in -= diff;
+            if(this.factor_next_inc_in < 0) {
+                this.factor++;
+                if(this.factor > this.FACTOR_MAX) this.factor = this.FACTOR_MAX;
+                this.factor_next_inc_in = this.FACTOR_INCREASE_DISTANCE;
+            }
         } else {
             /// nothing to do?
         }
@@ -140,5 +164,11 @@ var Score = {
     // simply add a value to current score
     add: function(score) {
         this.score += score;
+    },
+    
+    // reset factor and restart counter
+    resetFactor: function() {
+        this.factor = 1;
+        this.factor_next_inc_in = this.FACTOR_INCREASE_DISTANCE;
     }
 };

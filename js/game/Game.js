@@ -24,6 +24,13 @@ Game.prototype = Object.create(Phaser.State);
         this.player = new Player();
         this.bumpers = [];
         
+        this.gui = {
+            score:    new GuiNumbers("digits", 8, 462, 264, 2),
+            //time:     new GuiNumbers("digits_small", 8, 10, 10),
+            distance: new GuiNumbers("digits_small", 6, 578, 369),
+            factor:   new GuiNumbers("digits_small", 2, 735, 369)
+        }
+        
         this.isGameStarted = false;
         
         console.log("init done");
@@ -86,7 +93,7 @@ Game.prototype = Object.create(Phaser.State);
         this.bumpers.forEach(b => b.moveBy(scaledVelocityY));
         
         Score.changeDistance(-scaledVelocityY);
-        DEBUGOUT.innerHTML = `dist max:${Score.distanceMax} <br> cur:${Score.distanceCurrent} <br> score:${Score.score}`
+        //DEBUGOUT.innerHTML = `dist max:${Score.distanceMax} <br> cur:${Score.distanceCurrent} <br> score:${Score.score}`
         
         
         //### HANDLE INPUT ####################################################
@@ -129,6 +136,9 @@ Game.prototype = Object.create(Phaser.State);
                 // update score
                 Score.add(Score.SCORE_BUMPER);
                 
+                // reset factor
+                Score.resetFactor();
+                
                 // let player bump of
                 let ply = new Phaser.Point(this.player.x, this.player.y);
                 let bmp = new Phaser.Point(bump.x, bump.y);
@@ -142,6 +152,12 @@ Game.prototype = Object.create(Phaser.State);
                 Gravitation.applyForce(force.x, force.y);
             }
         }, this);
+        
+        
+        //### UPDATE GUI ELEMENTS #############################################
+        this.gui.score.update(Score.score)
+        this.gui.distance.update(Score.distanceShow)
+        this.gui.factor.update(Score.factor)
         
         
         //### REMOVE DEAD OBJECTS #############################################

@@ -28,6 +28,8 @@ Preload.prototype = Object.create(Phaser.State);;
         //this.load.spritesheet("bumper", "assets/bumper.png", 99, 99);
         this.load.spritesheet("bumper", "assets/bumper_kati.png", 70, 70);
         this.load.spritesheet("border", "assets/border.png", 16, 100);
+        this.load.spritesheet("digits", "assets/numbers_yellow.png", 38, 67);
+        this.load.spritesheet("digits_small", "assets/numbers_small_yellow.png", 23, 40);
         //this.load.spritesheet("border", "assets/von_kati/Hintergrund.png", 8, 16);
         this.load.spritesheet("backwall", "assets/background.png", 384, 700);
         //this.load.spritesheet("backwall", "assets/Hintergrund.png", 384, 128);
