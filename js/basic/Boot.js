@@ -17,7 +17,7 @@ Boot.prototype = Object.create(Phaser.State);
         // allow one pointer actually
         this.input.maxPointers = 1;
         
-        cursors = game.input.keyboard.createCursorKeys();
+        //cursors = game.input.keyboard.createCursorKeys();
         
         // right-click-menu is not allowed
         game.canvas.oncontextmenu = function (e) { e.preventDefault(); }

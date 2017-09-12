@@ -68,7 +68,6 @@ Game.prototype = Object.create(Phaser.State);
         Spawner.reset();
         Score.reset();
         StartTimer.reset()
-        StartTimer.start(() => this.isGameStarted = true)
         
         // reset gui
         this.gui.score.update(0)
@@ -90,6 +89,12 @@ Game.prototype = Object.create(Phaser.State);
         deltaTime = game.time.physicsElapsedMS * 0.001;
         
         // update start timer
+        if(!StartTimer.isActive && !this.isGameStarted) {
+            if(game.input.keyboard.isDown(Phaser.KeyCode.SPACEBAR)) {
+                StartTimer.start(() => this.isGameStarted = true)
+                console.log("START")
+            }
+        }
         StartTimer.update()
         
         // don't update game if it's not started yet
@@ -127,9 +132,9 @@ Game.prototype = Object.create(Phaser.State);
         // input -> move player
         // moving left or right
         // if not moving, then slow down 'til zero
-        if(cursors.left.isDown) {
+        if(game.input.keyboard.isDown(Phaser.KeyCode.LEFT)) {
             Gravitation.applyForce(-5, 0);
-        } else if(cursors.right.isDown) {
+        } else if(game.input.keyboard.isDown(Phaser.KeyCode.RIGHT)) {
             Gravitation.applyForce(5, 0);
         } else {
             if(Gravitation.vel.x < 0)

@@ -195,7 +195,7 @@ var StartTimer = {
         this.image.visible = false;
         this.timer = this.TIMER_MAX
         this.isActive = false
-        this.callback_function = console.log('No function set!')
+        this.callback_function = null
     },
     
     update: function() {
@@ -225,6 +225,5 @@ var StartTimer = {
         this.callback_function = callback || console.log('No function set!')
         this.image.visible = true
         this.image.bringToTop()
-        console.log(this.image)
     }
 }

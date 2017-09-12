@@ -4,9 +4,6 @@ var deltaTime = 0;
 // create phaser game
 var game = new Phaser.Game(CFG.WIDTH, CFG.HEIGHT, Phaser.AUTO, "gameDiv");
 
-// global keyboard handler
-var cursors;
-
 var DEBUGOUT;
 
 window.onload = function() {
