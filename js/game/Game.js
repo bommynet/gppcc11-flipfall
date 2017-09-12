@@ -52,7 +52,7 @@ Game.prototype = Object.create(Phaser.State);
      * Executed everytime the game will be started.
      */
     p.create = function() {
-        this.isGameStarted = true; /// TODO: start game by user input
+        this.isGameStarted = false; /// TODO: start game by user input
         this.timer = 120;
         
         this.bumpers = [];
@@ -61,9 +61,17 @@ Game.prototype = Object.create(Phaser.State);
         this.speed = -300;
         this.player.resetTo(this.area.getCenterX(), 100);
         
+        // reset singletons
         Gravitation.reset();
         Spawner.reset();
         Score.reset();
+        StartTimer.start(() => this.isGameStarted = true)
+        
+        // reset gui
+        this.gui.score.update(0)
+        this.gui.distance.update(0)
+        this.gui.factor.update(1)
+        this.gui.time.update(this.timer)
         
         // limit speed
         Gravitation.applyLimitY(this.speed);
@@ -77,6 +85,9 @@ Game.prototype = Object.create(Phaser.State);
     p.update = function() {
         // get elapsed time since last update
         deltaTime = game.time.physicsElapsedMS * 0.001;
+        
+        // update start timer
+        StartTimer.update()
         
         // don't update game if it's not started yet
         if(!this.isGameStarted) return;

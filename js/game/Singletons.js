@@ -172,3 +172,36 @@ var Score = {
         this.factor_next_inc_in = this.FACTOR_INCREASE_DISTANCE;
     }
 };
+
+//#############################################################################
+//### Logic: Start Timer
+//### Counts down before game starts.
+//#############################################################################
+var StartTimer = {
+    TIMER_MAX: 3,
+    
+    isActive: false,
+    timer: 0,
+    callback_function: null,
+    
+    update: function() {
+        if(!this.isActive) return;
+        
+        if(this.timer > 0) {
+            let timerBefore = this.timer
+            this.timer -= deltaTime
+            /// TODO show numbers on screen
+            DEBUGOUT.innerHTML = `StartTimer = ${this.timer}`
+        } else {
+            /// TODO show 'GO!' on screen
+            this.isActive = false
+            this.callback_function()
+        }
+    },
+    
+    start: function(callback) {
+        this.timer = this.TIMER_MAX
+        this.isActive = true
+        this.callback_function = callback || console.log('No function set!')
+    }
+}
