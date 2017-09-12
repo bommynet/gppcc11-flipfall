@@ -20,18 +20,29 @@ Game.prototype = Object.create(Phaser.State);
         // add background as lowest layer
         this.background = game.add.image(0, 0, "bg_game");
         
+        // create game objects
         this.area = new Area();
         this.player = new Player();
         this.bumpers = [];
         
+        // create gui
         this.gui = {
             score:    new GuiNumbers("digits", 8, 462, 264, 2),
-            //time:     new GuiNumbers("digits_small", 8, 10, 10),
+            time: {
+                      min: new GuiNumbers("digits_small", 2, 460, 369),
+                      sec: new GuiNumbers("digits_small", 2, 512, 369),
+                      update: function(time) {
+                          this.min.update(time / 60)
+                          this.sec.update(time % 60)
+                      }
+            },
             distance: new GuiNumbers("digits_small", 6, 578, 369),
             factor:   new GuiNumbers("digits_small", 2, 735, 369)
         }
         
+        // create important variables
         this.isGameStarted = false;
+        this.timer = 120;
         
         console.log("init done");
     },
@@ -42,6 +53,8 @@ Game.prototype = Object.create(Phaser.State);
      */
     p.create = function() {
         this.isGameStarted = true; /// TODO: start game by user input
+        this.timer = 120;
+        
         this.bumpers = [];
         
         // setup basic variables
@@ -138,6 +151,7 @@ Game.prototype = Object.create(Phaser.State);
                 
                 // reset factor
                 Score.resetFactor();
+                this.gui.factor.flash();
                 
                 // let player bump of
                 let ply = new Phaser.Point(this.player.x, this.player.y);
@@ -158,9 +172,20 @@ Game.prototype = Object.create(Phaser.State);
         this.gui.score.update(Score.score)
         this.gui.distance.update(Score.distanceShow)
         this.gui.factor.update(Score.factor)
+        this.gui.time.update(this.timer)
         
         // update maximum speed influenced by factor
         Gravitation.applyLimitY(this.speed + this.speed / 10 * Score.factor);
+        
+        
+        //### UPDATE TIMER ####################################################
+        if(this.timer <= 0) {
+            /// TODO: game ends
+            this.isGameStarted = false;
+            this.timer = 0;
+        } else {
+            this.timer -= deltaTime;
+        }
         
         
         //### REMOVE DEAD OBJECTS #############################################
