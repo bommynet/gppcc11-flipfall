@@ -3,6 +3,8 @@
 //#############################################################################
 function GuiNumbers(imagekey, count = 2, x = 0, y = 0, gap = 0) {
     this.image = [];
+    this.isFlashing = false;
+    this.timerFlashing = 0;
     
     // create digits
     for(let i=0; i<count; i++) {
@@ -31,8 +33,21 @@ GuiNumbers.prototype.update = function(value) {
         let current = index - (this.image.length - digits.length)
         
         if(current >= 0)
-            digit.frame = digits[current]
+            digit.frame = digits[current] + (this.isFlashing ? 11 : 0)
         else
-            digit.frame = 0
+            digit.frame = 0 + (this.isFlashing ? 11 : 0)
     })
+    
+    // update flash timer
+    if(this.isFlashing) {
+        this.timerFlashing -= deltaTime;
+        if(this.timerFlashing < 0) {
+            this.isFlashing = false;
+        }
+    }
+}
+
+GuiNumbers.prototype.flash = function(time = 0.5) {
+    this.isFlashing = true;
+    this.timerFlashing = time;
 }
