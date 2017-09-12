@@ -184,18 +184,38 @@ var StartTimer = {
     timer: 0,
     callback_function: null,
     
+    image: null,
+    
+    init: function() {
+        this.image = game.add.image(CFG.AREA.width / 2 + CFG.AREA.border, CFG.AREA.height / 2, "countdown", 3)
+        this.image.anchor.setTo(0.5, 0.5)
+    },
+    
+    reset: function() {
+        this.image.visible = false;
+        this.timer = this.TIMER_MAX
+        this.isActive = false
+        this.callback_function = console.log('No function set!')
+    },
+    
     update: function() {
         if(!this.isActive) return;
         
+        this.timer -= deltaTime
+        
         if(this.timer > 0) {
             let timerBefore = this.timer
-            this.timer -= deltaTime
             /// TODO show numbers on screen
-            DEBUGOUT.innerHTML = `StartTimer = ${this.timer}`
+            this.image.frame = Math.ceil(this.timer)
         } else {
             /// TODO show 'GO!' on screen
-            this.isActive = false
+            this.image.frame = Math.ceil(0)
             this.callback_function()
+            
+            if(this.timer < -2) {
+                this.isActive = false
+                this.image.visible = false
+            }
         }
     },
     
@@ -203,5 +223,8 @@ var StartTimer = {
         this.timer = this.TIMER_MAX
         this.isActive = true
         this.callback_function = callback || console.log('No function set!')
+        this.image.visible = true
+        this.image.bringToTop()
+        console.log(this.image)
     }
 }

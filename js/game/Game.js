@@ -44,6 +44,8 @@ Game.prototype = Object.create(Phaser.State);
         this.isGameStarted = false;
         this.timer = 120;
         
+        StartTimer.init()
+        
         console.log("init done");
     },
        
@@ -65,6 +67,7 @@ Game.prototype = Object.create(Phaser.State);
         Gravitation.reset();
         Spawner.reset();
         Score.reset();
+        StartTimer.reset()
         StartTimer.start(() => this.isGameStarted = true)
         
         // reset gui
