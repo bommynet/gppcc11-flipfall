@@ -60,3 +60,12 @@ Diese einfachen Stangen oder Nägel sind simple Hindernisse auf dem Spielfeld. D
 ### Slingshots (TODO)
 <img src="readme/slingshot.png" title="Bumper in Microsofts Pinball" style="float:right; margin: 0 0 0 7px">
 Ein Slingshot schießt den Spieler bei Berührung in eine bestimmte Richtung ab. Das Objekt wird dabei animiert und der Spieler bekommt einen festen Satz Punkte (evtl. 100).
+
+
+## Schwierigkeitsgrade
+Das Spiel soll eine Herausforderung und Jagd nach Highscores darstellen. Dazu sind anfangs zwei verschiedene Schwierigkeitsgrade angedacht:
+
+* *Zufall*: Dieser Modus wird von Anfang an im Spiel enthalten sein. Hierbei ist das Level nicht vorgegeben, sodass die einzelnen Hindernisse zufällig auf dem Spielfeld positioniert werden. Dadurch entsteht jede Runde ein neues Spielfeld und es bietet so viel Abwechslung. Ein Vergleich der Highscores ist jedoch nur wenig sinnvoll, da keine zwei Spielrunden miteinander vergleichbar sind.
+* *Leicht*: In diesem Modus ist das Level bei jedem Start das Selbe. So kann mit viel Übung der Höchstsatz an Punkten erreicht werden. (Erst wenn das Spiel im 'Zufall'-Modus angenehm spielbar ist, wird dieser Modus eingebaut.)
+
+Zusätzlich wäre es später möglich, im Stil der leichten Herausforderung, weitere Schwierigkeitsgrade einzubauen.
