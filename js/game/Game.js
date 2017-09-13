@@ -67,7 +67,6 @@ Game.prototype = Object.create(Phaser.State);
         Gravitation.reset();
         Spawner.reset();
         Score.reset();
-        StartTimer.reset()
         
         // reset gui
         this.gui.score.update(0)
@@ -92,10 +91,8 @@ Game.prototype = Object.create(Phaser.State);
         if(!StartTimer.isActive && !this.isGameStarted) {
             if(game.input.keyboard.isDown(Phaser.KeyCode.SPACEBAR)) {
                 StartTimer.start(() => this.isGameStarted = true)
-                console.log("START")
             }
         }
-        StartTimer.update()
         
         // don't update game if it's not started yet
         if(!this.isGameStarted) return;

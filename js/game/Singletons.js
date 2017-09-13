@@ -178,52 +178,59 @@ var Score = {
 //### Counts down before game starts.
 //#############################################################################
 var StartTimer = {
-    TIMER_MAX: 3,
     
     isActive: false,
-    timer: 0,
-    callback_function: null,
-    
     image: null,
     
     init: function() {
         this.image = game.add.image(CFG.AREA.width / 2 + CFG.AREA.border, CFG.AREA.height / 2, "countdown", 3)
         this.image.anchor.setTo(0.5, 0.5)
-    },
-    
-    reset: function() {
-        this.image.visible = false;
-        this.timer = this.TIMER_MAX
-        this.isActive = false
-        this.callback_function = null
-    },
-    
-    update: function() {
-        if(!this.isActive) return;
-        
-        this.timer -= deltaTime
-        
-        if(this.timer > 0) {
-            let timerBefore = this.timer
-            /// TODO show numbers on screen
-            this.image.frame = Math.ceil(this.timer)
-        } else {
-            /// TODO show 'GO!' on screen
-            this.image.frame = Math.ceil(0)
-            this.callback_function()
-            
-            if(this.timer < -2) {
-                this.isActive = false
-                this.image.visible = false
-            }
-        }
+        this.image.visible = false
     },
     
     start: function(callback) {
-        this.timer = this.TIMER_MAX
         this.isActive = true
-        this.callback_function = callback || console.log('No function set!')
+        
+        // made number '3' visible
+        this.image.frame = 3
         this.image.visible = true
         this.image.bringToTop()
+        
+        // create countdown (3..2..1..GO)
+        let tween3 = game.tweens.create(this.image).to({ width: 150, height: 96 }, 1000, Phaser.Easing.Linear.None, false)
+        let tween2 = game.tweens.create(this.image).to({ width: 150, height: 96 }, 1000, Phaser.Easing.Linear.None, false)
+        let tween1 = game.tweens.create(this.image).to({ width: 150, height: 96 }, 1000, Phaser.Easing.Linear.None, false)
+        let tweenGO = game.tweens.create(this.image).to({ alpha: 0 }, 1000, Phaser.Easing.Linear.None, false, 1000)
+        
+        // reset image after each partial tween and start following
+        tween3.onComplete.add(() => {
+            this.image.width= 200
+            this.image.height = 130
+            this.image.frame = 2
+            tween2.start()
+        }, this)
+        tween2.onComplete.add(() => {
+            this.image.width= 200
+            this.image.height = 130
+            this.image.frame = 1
+            tween1.start()
+        }, this)
+        tween1.onComplete.add(() => {
+            this.image.width= 200
+            this.image.height = 130
+            this.image.frame = 0
+            this.isActive = false
+            callback()
+            tweenGO.start()
+        }, this)
+        tweenGO.onComplete.add(() => {
+            this.image.width= 200
+            this.image.height = 130
+            this.image.frame = 3
+            this.image.visible = false
+        }, this)
+        
+        // start initial tween
+        tween3.start()
     }
 }
