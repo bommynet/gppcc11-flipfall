@@ -1,5 +1,9 @@
 # '&lt;Flip Fall&gt;' f&uuml;r die Game++ #11 CC
-Thema der GPPCC 11 - Thema 'Nach unten fallen'
+Rahmenbedingungen:
+
+* Thema des Spiels: 'Nach unten fallen'
+* Umgebung: das Spiel muss auf einem Desktop (Win, Linux, Mac, etc.) laufen
+* Abgabetermin: 23.09.2017 bis 23:59:59 Uhr
 
 ## Die Idee widerwillens
 Eigentlich wollte ich die GPPCC11 für mich ausfallen lassen. Zur Zeit ist privat und beruflich so viel los, dass ich dafür kaum Zeit habe. Und eine Spielidee hatte ich auch nicht.
@@ -12,16 +16,16 @@ Aber nun die Idee:
 
 * Prinzip: Flipperkugel fällt nach unten
 * Ziel: Falle so tief du kannst und hole die meisten Punkte
-* Ende: eine Spielrunde geht 2 Minuten
+* Ende: eine Spielrunde geht 30 Sekunden ~~2 Minuten~~ (durch PowerUps verlängerbar)
 * Hindernisse, die den Spieler bremsen / ablenken / helfen oder das Spiel beenden
-    * ~~Platten - an denen du abprallst (Tempo runter)~~
-    * 'Bumper' - die dich weg schleudern (Tempo links, rechts, rauf / extrem beschleunigt)
-    * Flipper - die dich wieder nach oben katapultieren (Hindernisse von unten ignorieren?)
-    * Fallen/Fallrohre - die dich fangen und das Spiel ist vorbei (?)
-    * Fliegenfänger - verlangsamen dich eine Zeit lang
+    * Bumper - die dich weg schleudern (Tempo links, rechts, rauf / extrem beschleunigt)
     * Stangen, Hütchen, Pinöpel - die dich abbremsen
-    * Katapultflächen - die dich in eine bestimmte Richtung weg schießen
-    * Schienen - die dich leiten und du so lange nicht steuern kannst
+    * ~~Flipper - die dich wieder nach oben katapultieren (Hindernisse von unten ignorieren?)~~\*
+    * ~~Fallen/Fallrohre - die dich fangen und das Spiel ist vorbei (?)~~\*
+    * ~~Fliegenfänger - verlangsamen dich eine Zeit lang~~\*
+    * ~~Katapultflächen - die dich in eine bestimmte Richtung weg schießen~~\*
+    * ~~Schienen - die dich leiten und du so lange nicht steuern kannst~~\*
+    * ~~Platten - an denen du abprallst (Tempo runter)~~
 * Steuerung
     * mit Pfeiltasten o.ä.
     * Kugel wird in die gewünschte Richtung beschleunigt, nicht direkt bewegt
@@ -29,6 +33,8 @@ Aber nun die Idee:
     * ~~Combo-Punkte, wenn du fällst ohne etwas zu berühren~~
     * Punkte-Faktor: je länger du fällst, ohne etwas zu berühren, desto mehr Punkte gibt es durchs Fallen
     * Tiefen-Punkte, je weiter du kommst desto mehr Punkte gibts ~~(Faktor oder feste Bonuspunkte?)~~
+    
+\*) Vorerst gestrichen, um das Spiel rechtzeitig 'fertig' zu bekommen.
     
     
 ## Steuerung und Bewegung
@@ -66,6 +72,6 @@ Ein Slingshot schießt den Spieler bei Berührung in eine bestimmte Richtung ab.
 Das Spiel soll eine Herausforderung und Jagd nach Highscores darstellen. Dazu sind anfangs zwei verschiedene Schwierigkeitsgrade angedacht:
 
 * *Zufall*: Dieser Modus wird von Anfang an im Spiel enthalten sein. Hierbei ist das Level nicht vorgegeben, sodass die einzelnen Hindernisse zufällig auf dem Spielfeld positioniert werden. Dadurch entsteht jede Runde ein neues Spielfeld und es bietet so viel Abwechslung. Ein Vergleich der Highscores ist jedoch nur wenig sinnvoll, da keine zwei Spielrunden miteinander vergleichbar sind.
-* *Leicht*: In diesem Modus ist das Level bei jedem Start das Selbe. So kann mit viel Übung der Höchstsatz an Punkten erreicht werden. (Erst wenn das Spiel im 'Zufall'-Modus angenehm spielbar ist, wird dieser Modus eingebaut.)
+* ~~*Leicht*: In diesem Modus ist das Level bei jedem Start das Selbe. So kann mit viel Übung der Höchstsatz an Punkten erreicht werden. (Erst wenn das Spiel im 'Zufall'-Modus angenehm spielbar ist, wird dieser Modus eingebaut.)~~ //nach neuem Zeitsystem sind quasi endlose Level möglich -> überdenken
 
 Zusätzlich wäre es später möglich, im Stil der leichten Herausforderung, weitere Schwierigkeitsgrade einzubauen.
