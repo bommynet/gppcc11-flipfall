@@ -95,7 +95,7 @@ var Spawner = {
             
             let power = {
                 type: 'powerup',
-                obj: new PowerUp()
+                obj: new PowerUp(PowerUp.TYPE.time5)
             }
             power.obj.resetTo(CFG.AREA.width / 2 + CFG.AREA.border, CFG.HEIGHT + 300);
             

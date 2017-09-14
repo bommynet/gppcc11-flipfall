@@ -8,11 +8,17 @@ function PowerUp(type) {
     this.anchor.setTo(0.5, 0.5)
     this.radius = CFG.RADIUS.powerup
     this.power = {
-        time: 0,
-        speed: 0
+        time: type.time,
+        speed: type.speed
     }
     
     game.add.existing(this)
+}
+
+PowerUp.TYPE = {
+    time5:   {time:  5, speed: 0},
+    time10:  {time: 10, speed: 0},
+    speedUp: {time:  0, speed: 1}
 }
 
 // inherits from Phaser.Sprite
