@@ -33,6 +33,7 @@ Preload.prototype = Object.create(Phaser.State);;
         //this.load.spritesheet("border", "assets/von_kati/Hintergrund.png", 8, 16);
         this.load.spritesheet("backwall", "assets/background.png", 384, 700);
         this.load.spritesheet("countdown", "assets/countdown_comic.png", 200, 130);
+        this.load.spritesheet("powerup", "assets/powerup.png", 30, 30);
         //this.load.spritesheet("backwall", "assets/Hintergrund.png", 384, 128);
         this.load.image("bg_game", "assets/background_night.png");
     },

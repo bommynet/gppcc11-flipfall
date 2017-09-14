@@ -1,8 +1,8 @@
 //#############################################################################
 //### Entity: PowerUp
 //#############################################################################
-function PowerUp() {
-    Phaser.Sprite.call(this, game, 0, 0, 'bumper', 0)
+function PowerUp(type) {
+    Phaser.Sprite.call(this, game, 0, 0, 'powerup', 0)
     
     this.isDead = false
     this.anchor.setTo(0.5, 0.5)
