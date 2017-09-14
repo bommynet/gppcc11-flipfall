@@ -4,6 +4,9 @@ function Game() {
 	Phaser.State.call(this);
 }
 
+// important values as static fields
+Game.TIMER_MAX = 30
+
 // inherits from Phaser.State
 Game.prototype = Object.create(Phaser.State);
 
@@ -43,7 +46,7 @@ Game.prototype = Object.create(Phaser.State);
         
         // create important variables
         this.isGameStarted = false;
-        this.timer = 120;
+        this.timer = Game.TIMER_MAX
         
         StartTimer.init()
         
@@ -56,7 +59,7 @@ Game.prototype = Object.create(Phaser.State);
      */
     p.create = function() {
         this.isGameStarted = false; /// TODO: start game by user input
-        this.timer = 120;
+        this.timer = Game.TIMER_MAX
         
         this.bumpers = [];
         this.powerups = [];
