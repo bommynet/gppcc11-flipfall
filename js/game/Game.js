@@ -24,6 +24,7 @@ Game.prototype = Object.create(Phaser.State);
         this.area = new Area();
         this.player = new Player();
         this.bumpers = [];
+        this.powerups = [];
         
         // create gui
         this.gui = {
@@ -58,6 +59,7 @@ Game.prototype = Object.create(Phaser.State);
         this.timer = 120;
         
         this.bumpers = [];
+        this.powerups = [];
         
         // setup basic variables
         this.speed = -300;
@@ -183,6 +185,27 @@ Game.prototype = Object.create(Phaser.State);
             }
         }, this);
         
+        // player -> powerup
+        this.powerups.forEach(powerup => {
+            // collide with powerup if distance between player and powerup is smaller than
+            // both radius summed
+            // Info: calculate with squared numbers to avoid high cpu usage
+            let distanceSquared = Math.pow(powerup.x - this.player.x, 2) + Math.pow(powerup.y - this.player.y, 2);
+            let radiusSquared = Math.pow(powerup.radius + this.player.radius, 2);
+            
+            if(distanceSquared < radiusSquared) {
+                /// TODO: animation, sound
+                
+                // 'execute' powerup
+                let [time, speed] = powerup.getPower()
+                this.timer += time
+                Score.factor += speed
+                
+                // after use -> remove
+                powerup.isDead = true
+            }
+        }, this);
+        
         
         //### UPDATE GUI ELEMENTS #############################################
         this.gui.score.update(Score.score)
@@ -206,7 +229,7 @@ Game.prototype = Object.create(Phaser.State);
         
         //### REMOVE DEAD OBJECTS #############################################
         this.bumpers = this.bumpers.filter(b => !b.isDead);
-        //DEBUGOUT.innerHTML = `Bumpers: ${this.bumpers.length}`;
+        this.powerups = this.powerups.filter(p => !p.isDead);
     },
 
     /**
