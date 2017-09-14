@@ -23,6 +23,7 @@ var CFG = {
     },
     
     RADIUS: {
-        bumper: 40 / 2
+        bumper: 40 / 2,
+        powerup: 40 / 4
     }
 };
