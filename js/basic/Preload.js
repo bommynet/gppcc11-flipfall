@@ -36,6 +36,7 @@ Preload.prototype = Object.create(Phaser.State);;
         this.load.spritesheet("powerup", "assets/powerup.png", 30, 30);
         //this.load.spritesheet("backwall", "assets/Hintergrund.png", 384, 128);
         this.load.image("bg_game", "assets/background_night.png");
+        this.load.image("bg_menu", "assets/background_menu.png");
     },
 
     // reaching this point, everything was loaded an we can start the game

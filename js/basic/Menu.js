@@ -19,8 +19,10 @@ Menu.prototype = Object.create(Phaser.State);
 
     // create menu screen
     p.create = function() {
+        this.background = game.add.image(0, 0, "bg_menu")
+        
         console.log("created Menu");
-        this.startGame();
+        //this.startGame();
     },
 
     // go to game state
