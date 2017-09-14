@@ -81,13 +81,25 @@ var Spawner = {
             // reset timer
             this.currentTime = 0;
             // create object
-            let bumper = new Bumper();
-            bumper.resetTo(CFG.AREA.width / 4 + CFG.AREA.border, CFG.HEIGHT + 100);
+            let bumper = {
+                type: 'bumper',
+                obj: new Bumper()
+            }
+            bumper.obj.resetTo(CFG.AREA.width / 4 + CFG.AREA.border, CFG.HEIGHT + 100);
             
-            let bumper2 = new Bumper();
-            bumper2.resetTo(CFG.AREA.width / 4 * 3 + CFG.AREA.border, CFG.HEIGHT + 200);
+            let bumper2 = {
+                type: 'bumper',
+                obj: new Bumper()
+            }
+            bumper2.obj.resetTo(CFG.AREA.width / 4 * 3 + CFG.AREA.border, CFG.HEIGHT + 200);
             
-            return [bumper,bumper2];
+            let power = {
+                type: 'powerup',
+                obj: new PowerUp()
+            }
+            power.obj.resetTo(CFG.AREA.width / 2 + CFG.AREA.border, CFG.HEIGHT + 300);
+            
+            return [bumper, bumper2, power];
         }
         // or count timer
         else {

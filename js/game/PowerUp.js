@@ -30,7 +30,3 @@ PowerUp.prototype.moveBy = function(pixels) {
     if(this.y < (CFG.HEIGHT + 100) * -1)
         this.isDead = true
 }
-
-PowerUp.prototype.getPower = function() {
-    return this.power
-}

@@ -108,9 +108,14 @@ Game.prototype = Object.create(Phaser.State);
         let obj = Spawner.spawn();
         if(obj) {
             // if obj is set, it could be a single object or an array of objects
-            if(Array.isArray(obj))
-                obj.forEach(o => this.bumpers.push(o), this);
-            else
+            if(Array.isArray(obj)) {
+                obj.forEach(o => {
+                    if(o.type === 'bumper')
+                        this.bumpers.push(o.obj)
+                    else if(o.type === 'powerup')
+                        this.powerups.push(o.obj)
+                }, this);
+            } else
                 this.bumpers.push(obj);
         }
         
@@ -122,6 +127,7 @@ Game.prototype = Object.create(Phaser.State);
         this.player.moveBy(scaledVelocityX);
         this.area.moveBy(scaledVelocityY);
         this.bumpers.forEach(b => b.moveBy(scaledVelocityY));
+        this.powerups.forEach(p => p.moveBy(scaledVelocityY));
         
         Score.changeDistance(-scaledVelocityY);
         //DEBUGOUT.innerHTML = `dist max:${Score.distanceMax} <br> cur:${Score.distanceCurrent} <br> score:${Score.score}`
@@ -197,7 +203,7 @@ Game.prototype = Object.create(Phaser.State);
                 /// TODO: animation, sound
                 
                 // 'execute' powerup
-                let [time, speed] = powerup.getPower()
+                let {time, speed} = powerup.power
                 this.timer += time
                 Score.factor += speed
                 
@@ -230,6 +236,7 @@ Game.prototype = Object.create(Phaser.State);
         //### REMOVE DEAD OBJECTS #############################################
         this.bumpers = this.bumpers.filter(b => !b.isDead);
         this.powerups = this.powerups.filter(p => !p.isDead);
+        DEBUGOUT.innerHTML = `bumper: ${this.bumpers.length} <br />powerup: ${this.powerups.length}`
     },
 
     /**
