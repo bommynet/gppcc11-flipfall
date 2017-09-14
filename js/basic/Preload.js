@@ -27,7 +27,6 @@ Preload.prototype = Object.create(Phaser.State);;
         this.load.spritesheet("player",  "assets/"+CFG.PLAYER.file, CFG.PLAYER.width, CFG.PLAYER.height);
         //this.load.spritesheet("bumper", "assets/bumper.png", 99, 99);
         this.load.spritesheet("bumper", "assets/bumper_kati.png", 70, 70);
-        this.load.spritesheet("border", "assets/border.png", 16, 100);
         this.load.spritesheet("digits", "assets/numbers_yellow.png", 38, 67);
         this.load.spritesheet("digits_small", "assets/numbers_small.png", 23, 40);
         //this.load.spritesheet("border", "assets/von_kati/Hintergrund.png", 8, 16);
@@ -37,6 +36,7 @@ Preload.prototype = Object.create(Phaser.State);;
         //this.load.spritesheet("backwall", "assets/Hintergrund.png", 384, 128);
         this.load.image("bg_game", "assets/background_night.png");
         this.load.image("bg_menu", "assets/background_menu.png");
+        this.load.image("bg_title", "assets/background_title.png");
     },
 
     // reaching this point, everything was loaded an we can start the game

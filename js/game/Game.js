@@ -82,6 +82,14 @@ Game.prototype = Object.create(Phaser.State);
         // limit speed
         Gravitation.applyLimitY(this.speed);
         
+        // start on any key
+        game.input.keyboard.onDownCallback = () => {
+            if(!StartTimer.isActive && !this.isGameStarted) {
+                StartTimer.start(() => this.isGameStarted = true)
+                game.input.keyboard.onDownCallback = null
+            }
+        }
+        
         console.log("create done");
     },
        
@@ -93,11 +101,11 @@ Game.prototype = Object.create(Phaser.State);
         deltaTime = game.time.physicsElapsedMS * 0.001;
         
         // update start timer
-        if(!StartTimer.isActive && !this.isGameStarted) {
-            if(game.input.keyboard.isDown(Phaser.KeyCode.SPACEBAR)) {
-                StartTimer.start(() => this.isGameStarted = true)
-            }
-        }
+//        if(!StartTimer.isActive && !this.isGameStarted) {
+//            if(game.input.keyboard.isDown(Phaser.KeyCode.SPACEBAR)) {
+//                StartTimer.start(() => this.isGameStarted = true)
+//            }
+//        }
         
         // don't update game if it's not started yet
         if(!this.isGameStarted) return;

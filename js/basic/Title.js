@@ -19,8 +19,10 @@ Title.prototype = Object.create(Phaser.State);
 
     // create title screen
     p.create = function() {
+        this.background = game.add.image(0, 0, "bg_title")
+        game.input.keyboard.onDownCallback = () => this.startMenu()
+        
         console.log("created Title");
-        this.startMenu();
     },
 
     // go to game menu
