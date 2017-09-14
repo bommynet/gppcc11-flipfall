@@ -234,9 +234,14 @@ Game.prototype = Object.create(Phaser.State);
         
         
         //### REMOVE DEAD OBJECTS #############################################
+        // destroy game object, then remove item
+        this.bumpers.forEach(b => {if(b.isDead) b.destroy()}, this)
         this.bumpers = this.bumpers.filter(b => !b.isDead);
+        
+        this.powerups.forEach(p => {if(p.isDead) p.destroy()}, this)
         this.powerups = this.powerups.filter(p => !p.isDead);
-        DEBUGOUT.innerHTML = `bumper: ${this.bumpers.length} <br />powerup: ${this.powerups.length}`
+        
+        //DEBUGOUT.innerHTML = `bumper: ${this.bumpers.length} <br />powerup: ${this.powerups.length} <br />world: ${game.world.children.length}`
     },
 
     /**
