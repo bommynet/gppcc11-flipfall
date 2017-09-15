@@ -57,7 +57,7 @@ var Gravitation = {
     getScaledVelocityX: function() {
         return this.vel.x * deltaTime
     }
-};
+}
 
 //#############################################################################
 //### Logic: Spawner
@@ -65,15 +65,14 @@ var Gravitation = {
 //#############################################################################
 var Spawner = {
     // variables
-    currentTime: 0,
-    nextSpawnTime: 0,
+    DISTANCE: 500,
     spawnDistance: 0,
     
     // reset variables for a new game
     reset: function(spawntime) {
         this.currentTime = 0
         this.nextSpawnTime = spawntime || 2
-        this.spawnDistance = 1000
+        this.spawnDistance = this.DISTANCE
     },
     
     // check, if a new object or set of objects should spawn
@@ -81,15 +80,8 @@ var Spawner = {
         this.spawnDistance += movePixelsY
         
         if(this.spawnDistance < 0) {
-            this.spawnDistance = 1000
-            
-            let bumper = {
-                type: 'bumper',
-                obj: new Bumper()
-            }
-            bumper.obj.resetTo(CFG.AREA.width / 4 + CFG.AREA.border, CFG.HEIGHT + 100)
-            
-            return [bumper]
+            this.spawnDistance = this.DISTANCE
+            return this.spawn_threeBumpers(Phaser.Utils.chanceRoll(50))
         }
 //        // spawn new object
 //        if(this.currentTime >= this.nextSpawnTime) {
@@ -120,8 +112,66 @@ var Spawner = {
 //        else {
 //            this.currentTime += deltaTime
 //        }
+    },
+    
+    /*                 *
+     *     B           *
+     *                 *
+     *          B      *
+     *                 *
+     * B               */
+    spawn_threeBumpers: function(left = true) {
+        // calculate bumper positions
+        let p1 = {
+            x: CFG.AREA.border + (left ? CFG.AREA.width / 4 : CFG.AREA.width * 3 / 4),
+            y: CFG.HEIGHT + 100
+        }
+        let p2 = {
+            x: CFG.AREA.border + (left ? CFG.AREA.width / 6 : CFG.AREA.width * 5 / 6),
+            y: CFG.HEIGHT + 300
+        }
+        let p3 = {
+            x: CFG.AREA.width / 2 + CFG.AREA.border,
+            y: CFG.HEIGHT + 200
+        }
+        
+        // setup and add bumpers to game
+        let [b1, b2, b3] = [new Bumper(), new Bumper(), new Bumper()]
+        b1.resetTo(p1.x, p1.y)
+        b2.resetTo(p2.x, p2.y)
+        b3.resetTo(p3.x, p3.y)
+        
+        // pack objects
+        let objects = [
+            {type: 'bumper', obj: b1},
+            {type: 'bumper', obj: b2},
+            {type: 'bumper', obj: b3}
+        ]
+        
+        // on chance: add power up/down
+        if(Phaser.Utils.chanceRoll(10)) {
+            let power = {
+                type: 'powerup',
+                obj: new PowerUp({time: 5, speed: 0}) // or via PowerUp.TYPE
+            }
+            power.obj.resetTo(p1.x, p3.y)
+            
+            objects.push(power)
+        }
+        
+        return objects
+    },
+    
+    spawn_powerupTime: function(value) {
+        let power = {
+            type: 'powerup',
+            obj: new PowerUp({time: value, speed: 0}) // or via PowerUp.TYPE
+        }
+        power.obj.resetTo(CFG.AREA.width * Math.random() + CFG.AREA.border, CFG.HEIGHT + 100)
+        
+        return [power]
     }
-};
+}
 
 //#############################################################################
 //### Logic: Score
@@ -194,7 +244,7 @@ var Score = {
         this.factor = 1
         this.factor_next_inc_in = this.FACTOR_INCREASE_DISTANCE
     }
-};
+}
 
 //#############################################################################
 //### Logic: Start Timer
