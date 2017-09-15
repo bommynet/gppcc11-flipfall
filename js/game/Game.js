@@ -104,12 +104,22 @@ Game.prototype = Object.create(Phaser.State)
         if(!this.isGameStarted) return
         
         
+        //### UPDATE OBJECTS POSITION #########################################
+        let scaledVelocityY = Gravitation.getScaledVelocityY()
+        let scaledVelocityX = Gravitation.getScaledVelocityX()
+        
+        this.player.moveBy(scaledVelocityX)
+        this.area.moveBy(scaledVelocityY)
+        this.bumpers.forEach(b => b.moveBy(scaledVelocityY))
+        this.powerups.forEach(p => p.moveBy(scaledVelocityY))
+        
+        
         //### UPDATE SINGLETONS ###############################################
         // update 'physics'
         Gravitation.update()
         
         // update spawner and add objects to game
-        let obj = Spawner.spawn()
+        let obj = Spawner.spawn(scaledVelocityY)
         if(obj) {
             // if obj is set, it could be a single object or an array of objects
             if(Array.isArray(obj)) {
@@ -123,17 +133,11 @@ Game.prototype = Object.create(Phaser.State)
                 this.bumpers.push(obj)
         }
         
-        
-        //### UPDATE OBJECTS POSITION #########################################
-        let scaledVelocityY = Gravitation.getScaledVelocityY()
-        let scaledVelocityX = Gravitation.getScaledVelocityX()
-        
-        this.player.moveBy(scaledVelocityX)
-        this.area.moveBy(scaledVelocityY)
-        this.bumpers.forEach(b => b.moveBy(scaledVelocityY))
-        this.powerups.forEach(p => p.moveBy(scaledVelocityY))
-        
+        // update score
         Score.changeDistance(-scaledVelocityY)
+        
+        // update maximum speed influenced by factor
+        Gravitation.applyLimitY(this.speed + this.speed / 10 * Score.factor)
         
         
         //### HANDLE INPUT ####################################################
@@ -221,9 +225,6 @@ Game.prototype = Object.create(Phaser.State)
         this.gui.distance.update(Score.distanceShow)
         this.gui.factor.update(Score.factor)
         this.gui.time.update(this.timer)
-        
-        // update maximum speed influenced by factor
-        Gravitation.applyLimitY(this.speed + this.speed / 10 * Score.factor)
         
         
         //### UPDATE TIMER ####################################################

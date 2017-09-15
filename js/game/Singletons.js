@@ -67,46 +67,59 @@ var Spawner = {
     // variables
     currentTime: 0,
     nextSpawnTime: 0,
+    spawnDistance: 0,
     
     // reset variables for a new game
     reset: function(spawntime) {
         this.currentTime = 0
         this.nextSpawnTime = spawntime || 2
+        this.spawnDistance = 1000
     },
     
     // check, if a new object or set of objects should spawn
-    spawn: function() {
-        // spawn new object
-        if(this.currentTime >= this.nextSpawnTime) {
-            // reset timer
-            this.currentTime = 0;
-            // create object
+    spawn: function(movePixelsY) {
+        this.spawnDistance += movePixelsY
+        
+        if(this.spawnDistance < 0) {
+            this.spawnDistance = 1000
+            
             let bumper = {
                 type: 'bumper',
                 obj: new Bumper()
             }
             bumper.obj.resetTo(CFG.AREA.width / 4 + CFG.AREA.border, CFG.HEIGHT + 100)
             
-            let bumper2 = {
-                type: 'bumper',
-                obj: new Bumper()
-            }
-            bumper2.obj.resetTo(CFG.AREA.width / 4 * 3 + CFG.AREA.border, CFG.HEIGHT + 200)
-            
-            let power = {
-                type: 'powerup',
-                obj: new PowerUp(PowerUp.TYPE.time5)
-            }
-            power.obj.resetTo(CFG.AREA.width / 2 + CFG.AREA.border, CFG.HEIGHT + 300)
-            
-            return [bumper, bumper2, power]
+            return [bumper]
         }
-        // or count timer
-        else {
-            this.currentTime += deltaTime
-        }
-        
-        return null
+//        // spawn new object
+//        if(this.currentTime >= this.nextSpawnTime) {
+//            // reset timer
+//            this.currentTime = 0;
+//            // create object
+//            let bumper = {
+//                type: 'bumper',
+//                obj: new Bumper()
+//            }
+//            bumper.obj.resetTo(CFG.AREA.width / 4 + CFG.AREA.border, CFG.HEIGHT + 100)
+//            
+//            let bumper2 = {
+//                type: 'bumper',
+//                obj: new Bumper()
+//            }
+//            bumper2.obj.resetTo(CFG.AREA.width / 4 * 3 + CFG.AREA.border, CFG.HEIGHT + 200)
+//            
+//            let power = {
+//                type: 'powerup',
+//                obj: new PowerUp(PowerUp.TYPE.time5)
+//            }
+//            power.obj.resetTo(CFG.AREA.width / 2 + CFG.AREA.border, CFG.HEIGHT + 300)
+//            
+//            return [bumper, bumper2, power]
+//        }
+//        // or count timer
+//        else {
+//            this.currentTime += deltaTime
+//        }
     }
 };
 
