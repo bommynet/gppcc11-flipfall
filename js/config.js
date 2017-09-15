@@ -26,4 +26,4 @@ var CFG = {
         bumper: 40 / 2,
         powerup: 40 / 4
     }
-};
+}

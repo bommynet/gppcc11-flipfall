@@ -2,9 +2,9 @@
 //### GUI Element: LED Numbers
 //#############################################################################
 function GuiNumbers(imagekey, count = 2, x = 0, y = 0, gap = 0) {
-    this.image = [];
-    this.isFlashing = false;
-    this.timerFlashing = 0;
+    this.image = []
+    this.isFlashing = false
+    this.timerFlashing = 0
     
     // create digits
     for(let i=0; i<count; i++) {
@@ -12,7 +12,7 @@ function GuiNumbers(imagekey, count = 2, x = 0, y = 0, gap = 0) {
     }
     
     // positioning digits
-    let width = this.image[0].width;
+    let width = this.image[0].width
     this.image.forEach((digit, index) => {
         digit.reset(x + index * (width + gap), y)
     })
@@ -20,11 +20,11 @@ function GuiNumbers(imagekey, count = 2, x = 0, y = 0, gap = 0) {
 
 GuiNumbers.prototype.update = function(value) {
     // get digits from score
-    let num = Math.floor(value);
-    let digits = [];
+    let num = Math.floor(value)
+    let digits = []
     while (num > 0) {
-        digits[digits.length] = num % 10;
-        num = Math.floor(num / 10);
+        digits[digits.length] = num % 10
+        num = Math.floor(num / 10)
     }
     digits.reverse()
     
@@ -40,14 +40,14 @@ GuiNumbers.prototype.update = function(value) {
     
     // update flash timer
     if(this.isFlashing) {
-        this.timerFlashing -= deltaTime;
+        this.timerFlashing -= deltaTime
         if(this.timerFlashing < 0) {
-            this.isFlashing = false;
+            this.isFlashing = false
         }
     }
 }
 
 GuiNumbers.prototype.flash = function(time = 0.5) {
-    this.isFlashing = true;
-    this.timerFlashing = time;
+    this.isFlashing = true
+    this.timerFlashing = time
 }

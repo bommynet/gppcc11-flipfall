@@ -1,15 +1,15 @@
 //### GameState: GAMEOVER
 //#############################################################################
 function GameOver() {
-	Phaser.State.call(this);
+	Phaser.State.call(this)
 }
 
 // inherits from Phaser.State
-GameOver.prototype = Object.create(Phaser.State);
+GameOver.prototype = Object.create(Phaser.State)
 
 
 
-(function(p){
+;(function(p){
     
 
     // preload assets
@@ -19,13 +19,13 @@ GameOver.prototype = Object.create(Phaser.State);
 
     // create game over screen
     p.create = function() {
-        console.log("created GameOver");
+        console.log("created GameOver")
     },
 
     // go to menu
     p.restartGame = function() {
-        this.game.state.start("Menu");
+        this.game.state.start("Menu")
     }
     
     
-})(GameOver.prototype);
+})(GameOver.prototype)

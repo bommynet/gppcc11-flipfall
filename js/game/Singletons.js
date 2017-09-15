@@ -13,49 +13,49 @@ var Gravitation = {
 
     // add a force to environment
     applyForce: function(x, y) {
-        this.acc.add(x, y);
+        this.acc.add(x, y)
     },
 
     // limit falling speed
     applyLimitY: function(maxSpeedY) {
-        this.maxSpeedY = Math.abs(maxSpeedY);
+        this.maxSpeedY = Math.abs(maxSpeedY)
     },
 
     // reset variables for a new game
     reset: function() {
-        this.acc.setTo(0, 0);
-        this.vel.setTo(0, 0);
-        this.maxSpeedY = 0;
-        this.maxSpeedX = 0;
-        this.gravitation = {x: 0, y: -300};
+        this.acc.setTo(0, 0)
+        this.vel.setTo(0, 0)
+        this.maxSpeedY = 0
+        this.maxSpeedX = 0
+        this.gravitation = {x: 0, y: -300}
     },
 
     // update logic
     update: function() {
         // add acceleration
-        this.vel.add(this.acc.x, this.acc.y);
+        this.vel.add(this.acc.x, this.acc.y)
 
         // reset acceleration
-        this.acc.setTo(0, 0);
+        this.acc.setTo(0, 0)
 
          // limit speed
         if(this.vel.y < -this.maxSpeedY)
-            this.vel.y = -this.maxSpeedY;
+            this.vel.y = -this.maxSpeedY
         else if(this.vel.y > this.maxSpeedY)
-            this.vel.y = this.maxSpeedY;
+            this.vel.y = this.maxSpeedY
 
         // speed -> move area
-        this.applyForce(0, this.gravitation.y * deltaTime);
+        this.applyForce(0, this.gravitation.y * deltaTime)
     },
 
     // current vertical velocity, scaled by delta time
     getScaledVelocityY: function() {
-        return this.vel.y * deltaTime;
+        return this.vel.y * deltaTime
     },
 
     // current horizontal velocity, scaled by delta time
     getScaledVelocityX: function() {
-        return this.vel.x * deltaTime;
+        return this.vel.x * deltaTime
     }
 };
 
@@ -70,8 +70,8 @@ var Spawner = {
     
     // reset variables for a new game
     reset: function(spawntime) {
-        this.currentTime = 0;
-        this.nextSpawnTime = spawntime || 2;
+        this.currentTime = 0
+        this.nextSpawnTime = spawntime || 2
     },
     
     // check, if a new object or set of objects should spawn
@@ -85,28 +85,28 @@ var Spawner = {
                 type: 'bumper',
                 obj: new Bumper()
             }
-            bumper.obj.resetTo(CFG.AREA.width / 4 + CFG.AREA.border, CFG.HEIGHT + 100);
+            bumper.obj.resetTo(CFG.AREA.width / 4 + CFG.AREA.border, CFG.HEIGHT + 100)
             
             let bumper2 = {
                 type: 'bumper',
                 obj: new Bumper()
             }
-            bumper2.obj.resetTo(CFG.AREA.width / 4 * 3 + CFG.AREA.border, CFG.HEIGHT + 200);
+            bumper2.obj.resetTo(CFG.AREA.width / 4 * 3 + CFG.AREA.border, CFG.HEIGHT + 200)
             
             let power = {
                 type: 'powerup',
                 obj: new PowerUp(PowerUp.TYPE.time5)
             }
-            power.obj.resetTo(CFG.AREA.width / 2 + CFG.AREA.border, CFG.HEIGHT + 300);
+            power.obj.resetTo(CFG.AREA.width / 2 + CFG.AREA.border, CFG.HEIGHT + 300)
             
-            return [bumper, bumper2, power];
+            return [bumper, bumper2, power]
         }
         // or count timer
         else {
-            this.currentTime += deltaTime;
+            this.currentTime += deltaTime
         }
         
-        return null;
+        return null
     }
 };
 
@@ -136,52 +136,50 @@ var Score = {
     
     // reset variables for a new game
     reset: function() {
-        this.score = 0;
-        this.distanceMax = 0;
-        this.distanceCurrent = 0;
-        this.distanceShow = 0;
-        this.factor = 1;
-        this.factor_next_inc_in = this.FACTOR_INCREASE_DISTANCE;
+        this.score = 0
+        this.distanceMax = 0
+        this.distanceCurrent = 0
+        this.distanceShow = 0
+        this.factor = 1
+        this.factor_next_inc_in = this.FACTOR_INCREASE_DISTANCE
     },
     
     // calculate current fall-distance, max-distance and add points based
     // on max-distance
     changeDistance: function(pixels) {
-        this.distanceCurrent += pixels;
+        this.distanceCurrent += pixels
         
-        let diff = this.distanceCurrent - this.distanceMax;
+        let diff = this.distanceCurrent - this.distanceMax
         
         if(diff > 0) {
             // real maximum distance
-            this.distanceMax = this.distanceCurrent;
+            this.distanceMax = this.distanceCurrent
             
             // scaled maximum distance
-            this.distanceShow = this.distanceMax / this.DISTANCE_FACTOR;
+            this.distanceShow = this.distanceMax / this.DISTANCE_FACTOR
             
             // update score
-            this.score += diff / this.DISTANCE_FACTOR * this.SCORE_DISTANCE * this.factor;
+            this.score += diff / this.DISTANCE_FACTOR * this.SCORE_DISTANCE * this.factor
             
             // update factor
-            this.factor_next_inc_in -= diff;
+            this.factor_next_inc_in -= diff
             if(this.factor_next_inc_in < 0) {
-                this.factor++;
-                if(this.factor > this.FACTOR_MAX) this.factor = this.FACTOR_MAX;
-                this.factor_next_inc_in = this.FACTOR_INCREASE_DISTANCE;
+                this.factor++
+                if(this.factor > this.FACTOR_MAX) this.factor = this.FACTOR_MAX
+                this.factor_next_inc_in = this.FACTOR_INCREASE_DISTANCE
             }
-        } else {
-            /// nothing to do?
         }
     },
     
     // simply add a value to current score
     add: function(score) {
-        this.score += score;
+        this.score += score
     },
     
     // reset factor and restart counter
     resetFactor: function() {
-        this.factor = 1;
-        this.factor_next_inc_in = this.FACTOR_INCREASE_DISTANCE;
+        this.factor = 1
+        this.factor_next_inc_in = this.FACTOR_INCREASE_DISTANCE
     }
 };
 
@@ -195,7 +193,8 @@ var StartTimer = {
     image: null,
     
     init: function() {
-        this.image = game.add.image(CFG.AREA.width / 2 + CFG.AREA.border, CFG.AREA.height / 2, "countdown", 3)
+        this.image = game.add.image(CFG.AREA.width / 2 + CFG.AREA.border,
+                                    CFG.AREA.height / 2, "countdown", 3)
         this.image.anchor.setTo(0.5, 0.5)
         this.image.visible = false
     },
@@ -209,10 +208,14 @@ var StartTimer = {
         this.image.bringToTop()
         
         // create countdown (3..2..1..GO)
-        let tween3 = game.tweens.create(this.image).to({ width: 150, height: 96 }, 1000, Phaser.Easing.Linear.None, false)
-        let tween2 = game.tweens.create(this.image).to({ width: 150, height: 96 }, 1000, Phaser.Easing.Linear.None, false)
-        let tween1 = game.tweens.create(this.image).to({ width: 150, height: 96 }, 1000, Phaser.Easing.Linear.None, false)
-        let tweenGO = game.tweens.create(this.image).to({ alpha: 0 }, 1000, Phaser.Easing.Linear.None, false, 1000)
+        let tween3 = game.tweens.create(this.image)
+            .to({ width: 150, height: 96 }, 1000, Phaser.Easing.Linear.None, false)
+        let tween2 = game.tweens.create(this.image)
+            .to({ width: 150, height: 96 }, 1000, Phaser.Easing.Linear.None, false)
+        let tween1 = game.tweens.create(this.image)
+            .to({ width: 150, height: 96 }, 1000, Phaser.Easing.Linear.None, false)
+        let tweenGO = game.tweens.create(this.image)
+            .to({ alpha: 0 }, 1000, Phaser.Easing.Linear.None, false, 1000)
         
         // reset image after each partial tween and start following
         tween3.onComplete.add(() => {

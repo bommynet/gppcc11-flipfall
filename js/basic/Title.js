@@ -1,20 +1,20 @@
 //### GameState: TITLE
 //#############################################################################
 function Title() {
-	Phaser.State.call(this);
+	Phaser.State.call(this)
 }
 
 // inherits from Phaser.State
-Title.prototype = Object.create(Phaser.State);
+Title.prototype = Object.create(Phaser.State)
 
 
 
-(function(p){
+;(function(p){
 
 
     // preload assets for this state
     p.preload = function() {
-        //this.load.pack("start", "assets/assets-pack.json");
+        //this.load.pack("start", "assets/assets-pack.json")
     },
 
     // create title screen
@@ -22,13 +22,13 @@ Title.prototype = Object.create(Phaser.State);
         this.background = game.add.image(0, 0, "bg_title")
         game.input.keyboard.onDownCallback = () => this.startMenu()
         
-        console.log("created Title");
+        console.log("created Title")
     },
 
     // go to game menu
     p.startMenu = function() {
-        this.game.state.start("Menu");
+        this.game.state.start("Menu")
     }
     
     
-})(Title.prototype);
+})(Title.prototype)
