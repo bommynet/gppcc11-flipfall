@@ -38,7 +38,8 @@ Preload.prototype = Object.create(Phaser.State)
     // reaching this point, everything was loaded an we can start the game
     p.create = function() {
         console.log("created Preload")
-        this.game.state.start("Title")
+        //this.game.state.start("Title")
+        this.game.state.start("Game")
     }
     
     
