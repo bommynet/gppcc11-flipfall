@@ -36,4 +36,10 @@ Player.prototype.update = function() {
       && Phaser.Utils.chanceRoll(1)) {
         this.animations.currentAnim.restart()
     }
+    
+    // play animations by direction
+    if(Gravitation.vel.y < 0)
+        this.animations.play('fall')
+    else if(Gravitation.vel.y > 0)
+        this.animations.play('up')
 }
