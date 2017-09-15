@@ -10,9 +10,10 @@ function Player() {
     // add(identifier, [frames], fps, loop, framesNamedByNumbers)
     this.animations.add('fall', CFG.PLAYER.animations.fall, 15, true, true);
     this.animations.add('up', CFG.PLAYER.animations.up, 15, true, true);
+    this.animations.add('prepare', CFG.PLAYER.animations.prepare, 15, false, true);
     
     game.add.existing(this);
-    this.animations.play('fall');
+    this.animations.play('prepare');
 }
 
 // inherits from Phaser.Sprite
@@ -29,5 +30,10 @@ Player.prototype.resetTo = function(x, y) {
 }
 
 Player.prototype.update = function() {
-    
+    // update prepare-animation (do not continous animate eyes)
+    if(this.animations.currentAnim.name === 'prepare'
+      && this.animations.currentAnim.isFinished
+      && Phaser.Utils.chanceRoll(1)) {
+        this.animations.currentAnim.restart()
+    }
 }
