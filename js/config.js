@@ -19,7 +19,11 @@ var CFG = {
         radius: 64 / 2,
         width: 108,
         height: 108,
-        frames: [4,5,6,7]
+        animations: {
+            fall: [0,1,2,3],
+            prepare: [8,9,10,11,12,13,14,15,16,17],
+            up: [4,5,6,7]
+        }
     },
     
     RADIUS: {
