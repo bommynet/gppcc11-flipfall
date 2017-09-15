@@ -209,11 +209,11 @@ var StartTimer = {
         
         // create countdown (3..2..1..GO)
         let tween3 = game.tweens.create(this.image)
-            .to({ width: 150, height: 96 }, 1000, Phaser.Easing.Linear.None, false)
+            .to({ width: 150, height: 96, alpha: 0.2 }, 1000, Phaser.Easing.Linear.None, false)
         let tween2 = game.tweens.create(this.image)
-            .to({ width: 150, height: 96 }, 1000, Phaser.Easing.Linear.None, false)
+            .to({ width: 150, height: 96, alpha: 0.2 }, 1000, Phaser.Easing.Linear.None, false)
         let tween1 = game.tweens.create(this.image)
-            .to({ width: 150, height: 96 }, 1000, Phaser.Easing.Linear.None, false)
+            .to({ width: 150, height: 96, alpha: 0.2 }, 1000, Phaser.Easing.Linear.None, false)
         let tweenGO = game.tweens.create(this.image)
             .to({ alpha: 0 }, 1000, Phaser.Easing.Linear.None, false, 1000)
         
@@ -221,18 +221,21 @@ var StartTimer = {
         tween3.onComplete.add(() => {
             this.image.width= 200
             this.image.height = 130
+            this.image.alpha = 1
             this.image.frame = 2
             tween2.start()
         }, this)
         tween2.onComplete.add(() => {
             this.image.width= 200
             this.image.height = 130
+            this.image.alpha = 1
             this.image.frame = 1
             tween1.start()
         }, this)
         tween1.onComplete.add(() => {
             this.image.width= 200
             this.image.height = 130
+            this.image.alpha = 1
             this.image.frame = 0
             this.isActive = false
             callback()
