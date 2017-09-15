@@ -25,6 +25,9 @@ Game.prototype = Object.create(Phaser.State)
         
         // create game objects
         this.area = new Area()
+        this.startBar = game.add.image(CFG.AREA.border, 100, 'player', 18)
+        this.startBar.width = CFG.AREA.width
+        this.startBar.anchor.setTo(0, 0.5)
         this.player = new Player()
         this.bumpers = []
         this.powerups = []
@@ -64,6 +67,8 @@ Game.prototype = Object.create(Phaser.State)
         this.bumpers = []
         this.powerups = []
         
+        this.startBar.visible = true
+        
         // setup basic variables
         this.speed = -300
         this.player.resetTo(this.area.getCenterX(), 100)
@@ -85,7 +90,10 @@ Game.prototype = Object.create(Phaser.State)
         // start on any key
         game.input.keyboard.onDownCallback = () => {
             if(!StartTimer.isActive && !this.isGameStarted) {
-                StartTimer.start(() => this.isGameStarted = true)
+                StartTimer.start(() => {
+                    this.isGameStarted = true
+                    this.startBar.visible = false
+                })
                 game.input.keyboard.onDownCallback = null
             }
         }
