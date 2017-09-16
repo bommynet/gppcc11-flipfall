@@ -81,8 +81,14 @@ var Spawner = {
         
         if(this.spawnDistance < 0) {
             this.spawnDistance = this.DISTANCE
-            //return this.spawn_threeBumpers(Phaser.Utils.chanceRoll(50))
-            return this.spawn_slingshot(Phaser.Utils.chanceRoll(50))
+            
+            // select random spawner function
+            let fn = BN.Random.randomElement(
+                this.spawn_slingshot,
+                this.spawn_threeBumpers)
+            
+            // execute function to add objects
+            return fn(Phaser.Utils.chanceRoll(50))
         }
 //        // spawn new object
 //        if(this.currentTime >= this.nextSpawnTime) {
