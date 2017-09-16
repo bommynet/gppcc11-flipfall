@@ -6,7 +6,12 @@ function Bumper() {
     
     this.isDead = false
     this.anchor.setTo(0.5, 0.5)
-    this.radius = CFG.RADIUS.bumper
+    this.radius = CFG.BUMPER.radius
+    
+    this.animations.add('idle', CFG.BUMPER.animations.idle, 15, true, true)
+    this.animations.add('hit', CFG.BUMPER.animations.hit, 15, false, true)
+    
+    this.animations.play('idle')
     
     game.add.existing(this)
 }
@@ -25,4 +30,8 @@ Bumper.prototype.moveBy = function(pixels) {
     
     if(this.y < CFG.HEIGHT * -4)
         this.isDead = true
+}
+
+Bumper.prototype.hit = function() {
+    this.animations.play('hit').onComplete.addOnce(x => this.animations.play('idle'), this)
 }

@@ -26,6 +26,17 @@ var CFG = {
         }
     },
     
+    BUMPER: {
+        file: 'bumper_kati.png',
+        radius: 40 / 2,
+        width: 70,
+        height: 70,
+        animations: {
+            idle: [4],
+            hit: [4,5,6,7,8]
+        }
+    },
+    
     RADIUS: {
         bumper: 40 / 2,
         powerup: 40 / 4

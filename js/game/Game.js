@@ -189,6 +189,8 @@ Game.prototype = Object.create(Phaser.State)
             
             if(distanceSquared < radiusSquared) {
                 /// TODO: animation, sound, show score
+                // animate hit
+                bump.hit()
                 
                 // update score
                 Score.add(Score.SCORE_BUMPER)
