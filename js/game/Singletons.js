@@ -81,7 +81,8 @@ var Spawner = {
         
         if(this.spawnDistance < 0) {
             this.spawnDistance = this.DISTANCE
-            return this.spawn_threeBumpers(Phaser.Utils.chanceRoll(50))
+            //return this.spawn_threeBumpers(Phaser.Utils.chanceRoll(50))
+            return this.spawn_slingshot(Phaser.Utils.chanceRoll(50))
         }
 //        // spawn new object
 //        if(this.currentTime >= this.nextSpawnTime) {
@@ -158,6 +159,31 @@ var Spawner = {
             
             objects.push(power)
         }
+        
+        return objects
+    },
+    
+    /* S               *
+     * SS              *
+     * SSS             *
+     * SSSS            *
+     *  SSSS           *
+     *    SSS          */
+    spawn_slingshot: function(left = true) {
+        // calculate slingshot position
+        let p = {
+            x: CFG.AREA.border + (left ? 0 : CFG.AREA.width - 128),
+            y: CFG.HEIGHT + 100
+        }
+        
+        // create slingshot
+        let shot = new Slingshot(left)
+        shot.resetTo(p.x, p.y)
+        
+        // pack objects
+        let objects = [
+            {type: 'shot', obj: shot}
+        ]
         
         return objects
     },

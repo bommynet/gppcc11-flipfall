@@ -31,6 +31,7 @@ Game.prototype = Object.create(Phaser.State)
         this.player = new Player()
         this.bumpers = []
         this.powerups = []
+        this.slingshots = []
         
         // create gui
         this.gui = {
@@ -64,13 +65,18 @@ Game.prototype = Object.create(Phaser.State)
         this.isGameStarted = false
         this.timer = Game.TIMER_MAX
         
+        // destroy game object, then remove item
+        this.bumpers.forEach(obj => obj.destroy(), this)
         this.bumpers = []
+        this.powerups.forEach(obj => obj.destroy(), this)
         this.powerups = []
+        this.slingshots.forEach(obj => obj.destroy(), this)
+        this.slingshots = []
         
         this.startBar.visible = true
         
         // setup basic variables
-        this.speed = -300
+        this.SPEED = -300
         this.player.resetTo(this.area.getCenterX(), 100)
         
         // reset singletons
@@ -85,7 +91,7 @@ Game.prototype = Object.create(Phaser.State)
         this.gui.time.update(this.timer)
         
         // limit speed
-        Gravitation.applyLimitY(this.speed)
+        Gravitation.applyLimitY(this.SPEED)
         
         // start on any key
         game.input.keyboard.onDownCallback = () => {
@@ -118,8 +124,9 @@ Game.prototype = Object.create(Phaser.State)
         
         this.player.moveBy(scaledVelocityX)
         this.area.moveBy(scaledVelocityY)
-        this.bumpers.forEach(b => b.moveBy(scaledVelocityY))
-        this.powerups.forEach(p => p.moveBy(scaledVelocityY))
+        this.bumpers.forEach(obj => obj.moveBy(scaledVelocityY))
+        this.powerups.forEach(obj => obj.moveBy(scaledVelocityY))
+        this.slingshots.forEach(obj => obj.moveBy(scaledVelocityY))
         
         
         //### UPDATE SINGLETONS ###############################################
@@ -127,25 +134,23 @@ Game.prototype = Object.create(Phaser.State)
         Gravitation.update()
         
         // update spawner and add objects to game
-        let obj = Spawner.spawn(scaledVelocityY)
-        if(obj) {
-            // if obj is set, it could be a single object or an array of objects
-            if(Array.isArray(obj)) {
-                obj.forEach(o => {
-                    if(o.type === 'bumper')
-                        this.bumpers.push(o.obj)
-                    else if(o.type === 'powerup')
-                        this.powerups.push(o.obj)
-                }, this)
-            } else
-                this.bumpers.push(obj)
+        let objs = Spawner.spawn(scaledVelocityY)
+        if(objs && Array.isArray(objs)) {
+            objs.forEach(obj => {
+                if(obj.type === 'bumper')
+                    this.bumpers.push(obj.obj)
+                else if(obj.type === 'powerup')
+                    this.powerups.push(obj.obj)
+                else if(obj.type === 'shot')
+                    this.slingshots.push(obj.obj)
+            }, this)
         }
         
         // update score
         Score.changeDistance(-scaledVelocityY)
         
         // update maximum speed influenced by factor
-        Gravitation.applyLimitY(this.speed + this.speed / 10 * Score.factor)
+        Gravitation.applyLimitY(this.SPEED + this.SPEED / 10 * Score.factor)
         
         
         //### HANDLE INPUT ####################################################
@@ -227,6 +232,11 @@ Game.prototype = Object.create(Phaser.State)
             }
         }, this)
         
+        // player -> slingshot
+        this.slingshots.forEach(slingshot => {
+            
+        }, this)
+        
         
         //### UPDATE GUI ELEMENTS #############################################
         this.gui.score.update(Score.score)
@@ -247,11 +257,14 @@ Game.prototype = Object.create(Phaser.State)
         
         //### REMOVE DEAD OBJECTS #############################################
         // destroy game object, then remove item
-        this.bumpers.forEach(b => {if(b.isDead) b.destroy()}, this)
-        this.bumpers = this.bumpers.filter(b => !b.isDead)
+        this.bumpers.forEach(obj => {if(obj.isDead) obj.destroy()}, this)
+        this.bumpers = this.bumpers.filter(obj => !obj.isDead)
         
-        this.powerups.forEach(p => {if(p.isDead) p.destroy()}, this)
-        this.powerups = this.powerups.filter(p => !p.isDead)
+        this.powerups.forEach(obj => {if(obj.isDead) obj.destroy()}, this)
+        this.powerups = this.powerups.filter(obj => !obj.isDead)
+        
+        this.slingshots.forEach(obj => {if(obj.isDead) obj.destroy()}, this)
+        this.slingshots = this.slingshots.filter(obj => !obj.isDead)
     },
 
     // change game state
