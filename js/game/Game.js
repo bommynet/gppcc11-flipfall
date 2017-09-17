@@ -224,6 +224,7 @@ Game.prototype = Object.create(Phaser.State)
             
             if(distanceSquared < radiusSquared) {
                 /// TODO: animation, sound
+                powerup.hit()
                 
                 // 'execute' powerup
                 let {time, speed} = powerup.power

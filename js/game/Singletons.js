@@ -289,6 +289,9 @@ var StartTimer = {
             this.image.height = 130
             this.image.alpha = 1
             this.image.frame = 2
+            
+            game.sound.play('a_countdown_c', CFG.SOUND.volume)
+            
             tween2.start()
         }, this)
         tween2.onComplete.add(() => {
@@ -296,6 +299,9 @@ var StartTimer = {
             this.image.height = 130
             this.image.alpha = 1
             this.image.frame = 1
+            
+            game.sound.play('a_countdown_c', CFG.SOUND.volume)
+            
             tween1.start()
         }, this)
         tween1.onComplete.add(() => {
@@ -305,6 +311,9 @@ var StartTimer = {
             this.image.frame = 0
             this.isActive = false
             callback()
+            
+            game.sound.play('a_countdown_e', CFG.SOUND.volume)
+            
             tweenGO.start()
         }, this)
         tweenGO.onComplete.add(() => {
@@ -315,6 +324,7 @@ var StartTimer = {
         }, this)
         
         // start initial tween
+        game.sound.play('a_countdown_c', CFG.SOUND.volume)
         tween3.start()
     }
 }

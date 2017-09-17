@@ -33,5 +33,9 @@ Bumper.prototype.moveBy = function(pixels) {
 }
 
 Bumper.prototype.hit = function() {
+    // animate bumper
     this.animations.play('hit').onComplete.addOnce(x => this.animations.play('idle'), this)
+    
+    // play sound
+    game.sound.play('a_bumper', CFG.SOUND.volume)
 }

@@ -40,5 +40,9 @@ var CFG = {
     RADIUS: {
         bumper: 40 / 2,
         powerup: 40 / 4
+    },
+    
+    SOUND: {
+        volume: 0.5
     }
 }
