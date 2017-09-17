@@ -99,6 +99,7 @@ Game.prototype = Object.create(Phaser.State)
                 StartTimer.start(() => {
                     this.isGameStarted = true
                     this.startBar.visible = false
+                    this.player.animations.play('fall')
                 })
                 game.input.keyboard.onDownCallback = null
             }
