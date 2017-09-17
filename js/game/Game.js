@@ -236,7 +236,22 @@ Game.prototype = Object.create(Phaser.State)
         
         // player -> slingshot
         this.slingshots.forEach(slingshot => {
-            
+            // check if player is near the slingshot
+            if(slingshot.possibleCollisionWithPlayer(this.player)) {
+                
+                // check if player collides with slingshot nodes
+                let nrm = slingshot.collideWithNodes(this.player)
+                if(nrm) {
+//                    console.log("SLINGSHOT")
+//                    let force = new Phaser.Point()
+//                    force.copyFrom(nrm)
+//                    force.multiply(1000, -1000)
+//
+//                    Gravitation.applyForce(force.x, force.y)
+                    Gravitation.vel.x *= -0.5
+                    Gravitation.vel.y *= -0.5
+                }
+            }
         }, this)
         
         
