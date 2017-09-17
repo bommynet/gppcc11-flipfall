@@ -29,7 +29,7 @@ Slingshot.prototype.resetTo = function(x, y) {
 Slingshot.prototype.moveBy = function(pixels) {
     this.y += pixels
     
-    if(this.y < CFG.HEIGHT * -4)
+    if(this.y < CFG.HEIGHT * -2)
         this.isDead = true
 }
 
