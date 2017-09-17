@@ -33,6 +33,22 @@ Game.prototype = Object.create(Phaser.State)
         this.powerups = []
         this.slingshots = []
         
+        this.btnSound = game.add.button(
+            CFG.WIDTH - 10, CFG.HEIGHT - 10, 'btn_sound',
+            () => {
+                if(CFG.SOUND.volume > 0) {
+                    console.log('button:off')
+                    this.btnSound.setFrames(0, 0, 0)
+                    CFG.SOUND.volume = 0
+                } else {
+                    console.log('button:on')
+                    this.btnSound.setFrames(1, 1, 1)
+                    CFG.SOUND.volume = 0.5
+                }
+            }, this, 1, 1, 1)
+        this.btnSound.anchor.setTo(1, 1)
+        this.btnSound.setFrames(1, 1, 1)
+        
         // create gui
         this.gui = {
             score:    new GuiNumbers("digits", 8, 462, 264, 2),
