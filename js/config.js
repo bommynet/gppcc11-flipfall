@@ -32,8 +32,8 @@ var CFG = {
         width: 70,
         height: 70,
         animations: {
-            idle: [4],
-            hit: [4,5,6,7,8]
+            idle: [8],
+            hit: [9,10,11]
         }
     },
     
