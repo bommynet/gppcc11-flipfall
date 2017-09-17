@@ -83,42 +83,13 @@ var Spawner = {
             this.spawnDistance = this.DISTANCE
             
             // select random spawner function
-            let fn = BN.Random.randomElement(
-                this.spawn_slingshot,
-                this.spawn_threeBumpers)
+            let fnSpawn = Bommy.Random.randomElement(
+                Spawner.spawn_slingshot,
+                Spawner.spawn_threeBumpers)
             
             // execute function to add objects
-            return fn(Phaser.Utils.chanceRoll(50))
+            return fnSpawn(Phaser.Utils.chanceRoll(50))
         }
-//        // spawn new object
-//        if(this.currentTime >= this.nextSpawnTime) {
-//            // reset timer
-//            this.currentTime = 0;
-//            // create object
-//            let bumper = {
-//                type: 'bumper',
-//                obj: new Bumper()
-//            }
-//            bumper.obj.resetTo(CFG.AREA.width / 4 + CFG.AREA.border, CFG.HEIGHT + 100)
-//            
-//            let bumper2 = {
-//                type: 'bumper',
-//                obj: new Bumper()
-//            }
-//            bumper2.obj.resetTo(CFG.AREA.width / 4 * 3 + CFG.AREA.border, CFG.HEIGHT + 200)
-//            
-//            let power = {
-//                type: 'powerup',
-//                obj: new PowerUp(PowerUp.TYPE.time5)
-//            }
-//            power.obj.resetTo(CFG.AREA.width / 2 + CFG.AREA.border, CFG.HEIGHT + 300)
-//            
-//            return [bumper, bumper2, power]
-//        }
-//        // or count timer
-//        else {
-//            this.currentTime += deltaTime
-//        }
     },
     
     /*                 *
