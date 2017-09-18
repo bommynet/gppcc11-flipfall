@@ -28,6 +28,7 @@ Game.prototype = Object.create(Phaser.State)
         this.startBar = game.add.image(CFG.AREA.border, 100, 'player', 18)
         this.startBar.width = CFG.AREA.width
         this.startBar.anchor.setTo(0, 0.5)
+        this.title = new GuiTitle(480, 12)
         this.player = new Player()
         this.bumpers = []
         this.powerups = []
@@ -278,6 +279,7 @@ Game.prototype = Object.create(Phaser.State)
         this.gui.distance.update(Score.distanceShow)
         this.gui.factor.update(Score.factor)
         this.gui.time.update(this.timer)
+        this.title.update()
         
         
         //### UPDATE TIMER ####################################################
