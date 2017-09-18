@@ -2,7 +2,7 @@
 var deltaTime = 0
 
 // create phaser game
-var game = new Phaser.Game(CFG.WIDTH, CFG.HEIGHT, Phaser.AUTO, "gameDiv")
+var game = new Phaser.Game(CFG.WIDTH, CFG.HEIGHT, Phaser.AUTO, "gameDiv", null, false, false)
 
 var DEBUGOUT
 

@@ -10,12 +10,16 @@
             // no choices -> no elements
             if(!choices || choices.length < 1) return null
             
-            // one choice -> one element
-            if(choices.length === 1) return choices[0]
+            let elements = choices
+            
+            // choices could be an array
+            if(choices.length === 1 && Array.isArray(choices[0])) {
+                elements = choices[0]
+            }
             
             // get a random index and return the selected element
-            let selectedIndex = Math.floor(Math.random() * choices.length)
-            return choices[selectedIndex]
+            let selectedIndex = Math.floor(Math.random() * elements.length)
+            return elements[selectedIndex]
         }
     }
     

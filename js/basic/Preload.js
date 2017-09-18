@@ -30,6 +30,7 @@ Preload.prototype = Object.create(Phaser.State)
         this.load.spritesheet("countdown", "assets/countdown_comic.png", 200, 130)
         this.load.spritesheet("powerup", "assets/power_up.png", 30, 30)
         this.load.spritesheet("btn_sound", "assets/speaker.png", 48, 48)
+        this.load.spritesheet(CFG.TITLE.id, CFG.TITLE.file, CFG.TITLE.width, CFG.TITLE.height)
         
         // load images
         this.load.image("bg_game", "assets/background_night.png")
