@@ -135,6 +135,15 @@ Game.prototype = Object.create(Phaser.State)
         // get elapsed time since last update
         deltaTime = game.time.physicsElapsedMS * 0.001
         
+        
+        //### UPDATE GUI ELEMENTS #############################################
+        this.gui.score.update(Score.score)
+        this.gui.distance.update(Score.distanceShow)
+        this.gui.factor.update(Score.factor)
+        this.gui.time.update(this.timer)
+        this.title.update()
+        
+        
         // don't update game if it's not started yet
         if(!this.isGameStarted) return
         
@@ -276,14 +285,6 @@ Game.prototype = Object.create(Phaser.State)
                 }
             }
         }, this)
-        
-        
-        //### UPDATE GUI ELEMENTS #############################################
-        this.gui.score.update(Score.score)
-        this.gui.distance.update(Score.distanceShow)
-        this.gui.factor.update(Score.factor)
-        this.gui.time.update(this.timer)
-        this.title.update()
         
         
         //### UPDATE TIMER ####################################################
