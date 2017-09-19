@@ -73,6 +73,7 @@ var Spawner = {
         this.currentTime = 0
         this.nextSpawnTime = spawntime || 2
         this.spawnDistance = this.DISTANCE
+        this.lastFn = null
     },
     
     // check, if a new object or set of objects should spawn
@@ -80,102 +81,26 @@ var Spawner = {
         this.spawnDistance += movePixelsY
         
         if(this.spawnDistance < 0) {
-            this.spawnDistance = this.DISTANCE
+            //this.spawnDistance = this.DISTANCE
+            let fnSet = [
+                SpawnFn.spawn_threeBumpersLine,
+                SpawnFn.spawn_fourBumpers,
+                SpawnFn.spawn_twoBumpersLine
+            ]
             
             // select random spawner function
             let fnSpawn = Bommy.Random.randomElement(
-                Spawner.spawn_slingshot,
-                Spawner.spawn_threeBumpers)
+                fnSet.filter(x => x !== this.lastFn)
+            )
+            
+            this.lastFn = fnSpawn
             
             // execute function to add objects
-            return fnSpawn(Phaser.Utils.chanceRoll(50))
-        }
-    },
-    
-    /*                 *
-     *     B           *
-     *                 *
-     *          B      *
-     *                 *
-     * B               */
-    spawn_threeBumpers: function(left = true) {
-        // calculate bumper positions
-        let p1 = {
-            x: CFG.AREA.border + (left ? CFG.AREA.width / 4 : CFG.AREA.width * 3 / 4),
-            y: CFG.HEIGHT + 100
-        }
-        let p2 = {
-            x: CFG.AREA.border + (left ? CFG.AREA.width / 6 : CFG.AREA.width * 5 / 6),
-            y: CFG.HEIGHT + 300
-        }
-        let p3 = {
-            x: CFG.AREA.width / 2 + CFG.AREA.border,
-            y: CFG.HEIGHT + 200
-        }
-        
-        // setup and add bumpers to game
-        let [b1, b2, b3] = [new Bumper(), new Bumper(), new Bumper()]
-        b1.resetTo(p1.x, p1.y)
-        b2.resetTo(p2.x, p2.y)
-        b3.resetTo(p3.x, p3.y)
-        
-        // pack objects
-        let objects = [
-            {type: 'bumper', obj: b1},
-            {type: 'bumper', obj: b2},
-            {type: 'bumper', obj: b3}
-        ]
-        
-        // on chance: add power up/down
-        if(Phaser.Utils.chanceRoll(10)) {
-            let power = {
-                type: 'powerup',
-                obj: new PowerUp({time: 5, speed: 0}) // or via PowerUp.TYPE
-            }
-            power.obj.resetTo(p1.x, p3.y)
+            let res = fnSpawn(Phaser.Utils.chanceRoll(50))
+            this.spawnDistance = res.height
             
-            objects.push(power)
+            return res.objects
         }
-        
-        return objects
-    },
-    
-    /* S               *
-     * SS              *
-     * SSS             *
-     * SSSS            *
-     *  SSSS           *
-     *    SSS          */
-    spawn_slingshot: function(left = true) {
-        /// TODO: collision with right slingshots doesn't work currently
-        left = true
-        
-        // calculate slingshot position
-        let p = {
-            x: CFG.AREA.border + (left ? 0 : CFG.AREA.width - 128),
-            y: CFG.HEIGHT + 100
-        }
-        
-        // create slingshot
-        let shot = new Slingshot(left)
-        shot.resetTo(p.x, p.y)
-        
-        // pack objects
-        let objects = [
-            {type: 'shot', obj: shot}
-        ]
-        
-        return objects
-    },
-    
-    spawn_powerupTime: function(value) {
-        let power = {
-            type: 'powerup',
-            obj: new PowerUp({time: value, speed: 0}) // or via PowerUp.TYPE
-        }
-        power.obj.resetTo(CFG.AREA.width * Math.random() + CFG.AREA.border, CFG.HEIGHT + 100)
-        
-        return [power]
     }
 }
 
