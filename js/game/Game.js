@@ -62,6 +62,10 @@ Game.prototype = Object.create(Phaser.State)
                       update: function(time) {
                           this.min.update(time / 60)
                           this.sec.update(time % 60)
+                          if(time <= 10 && time > 0) {
+                              this.min.flash(0.5, 0.5)
+                              this.sec.flash(0.5, 0.5)
+                          }
                       }
             },
             distance: new GuiNumbers("digits_small", 6, 578, 369),
