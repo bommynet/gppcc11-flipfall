@@ -107,3 +107,33 @@ Slingshot.prototype.collideWithNodes = function(player) {
     // no collision, no vector
     return null
 }
+
+// check if player collides with slingshots shooting area
+// (returns normalized shooting vector on collision or null)
+Slingshot.prototype.collideWithShot = function(player) {
+    let start = {
+        x: this.x + (this.alignLeft ? this.c.x1 : this.width - this.c.x1),
+        y: this.y + this.c.y1
+    }
+    let end = {
+        x: this.x + (this.alignLeft ? this.c.x2 : this.width - this.c.x2),
+        y: this.y + this.c.y2
+    }
+    
+    // create values for better readability
+    let circle = {
+        x: player.position.x,
+        y: player.position.y
+    }
+    let radius = player.radius
+    
+    // check for collision
+    if(Bommy.Collision.lineCircle(start, end, circle, radius)) {
+        /// TODO: create shooting direction vector
+        let nrm = Phaser.Point.(1,0) 
+        return nrm
+    }
+    
+    // no collision, no vector
+    return null
+}
