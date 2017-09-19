@@ -79,7 +79,8 @@ var Spawner = {
             SpawnFn.threeBumpersLine,
             SpawnFn.fourBumpers,
             SpawnFn.twoBumpersLine,
-            SpawnFn.oneBumper
+            SpawnFn.oneBumper,
+            SpawnFn.twoBumpersNearCenter
         ]
     },
     

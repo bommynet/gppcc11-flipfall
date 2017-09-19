@@ -225,6 +225,39 @@ var SpawnFn = {
     /*                 *
      *                 *
      *                 *
+     * B      B      B *
+     *                 *
+     *                 */
+    twoBumpersNearCenter: function() {
+        // calculate bumper positions
+        let p1 = {
+            x: CFG.AREA.border + CFG.AREA.width / 2 - CFG.BUMPER.width / 2,
+            y: CFG.HEIGHT + 100
+        }
+        let p2 = {
+            x: CFG.AREA.border + CFG.AREA.width / 2 + CFG.BUMPER.width / 2,
+            y: CFG.HEIGHT + 100
+        }
+        
+        // setup and add bumpers to game
+        let [b1, b2] = [new Bumper(), new Bumper()]
+        b1.resetTo(p1.x, p1.y)
+        b2.resetTo(p2.x, p2.y)
+        
+        // pack objects
+        let objects = [
+            {type: 'bumper', obj: b1},
+            {type: 'bumper', obj: b2}
+        ]
+        
+        height = 300
+        
+        return {objects, height}
+    },
+    
+    /*                 *
+     *                 *
+     *                 *
      *        B        *
      *                 *
      *                 */
