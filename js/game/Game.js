@@ -5,7 +5,7 @@ function Game() {
 }
 
 // important values as static fields
-Game.TIMER_MAX = 3//30
+Game.TIMER_MAX = 30
 
 // inherits from Phaser.State
 Game.prototype = Object.create(Phaser.State)
