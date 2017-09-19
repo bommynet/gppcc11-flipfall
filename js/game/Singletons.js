@@ -67,6 +67,7 @@ var Spawner = {
     // variables
     DISTANCE: 500,
     spawnDistance: 0,
+    fnSet: [],
     
     // reset variables for a new game
     reset: function(spawntime) {
@@ -74,6 +75,12 @@ var Spawner = {
         this.nextSpawnTime = spawntime || 2
         this.spawnDistance = this.DISTANCE
         this.lastFn = null
+        this.fnSet = [
+            SpawnFn.threeBumpersLine,
+            SpawnFn.fourBumpers,
+            SpawnFn.twoBumpersLine,
+            SpawnFn.oneBumper
+        ]
     },
     
     // check, if a new object or set of objects should spawn
@@ -81,16 +88,9 @@ var Spawner = {
         this.spawnDistance += movePixelsY
         
         if(this.spawnDistance < 0) {
-            //this.spawnDistance = this.DISTANCE
-            let fnSet = [
-                SpawnFn.spawn_threeBumpersLine,
-                SpawnFn.spawn_fourBumpers,
-                SpawnFn.spawn_twoBumpersLine
-            ]
-            
             // select random spawner function
             let fnSpawn = Bommy.Random.randomElement(
-                fnSet.filter(x => x !== this.lastFn)
+                this.fnSet.filter(x => x !== this.lastFn)
             )
             
             this.lastFn = fnSpawn

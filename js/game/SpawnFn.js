@@ -7,7 +7,7 @@ var SpawnFn = {
      *          B      *
      *                 *
      * B               */
-    spawn_threeBumpers: function(left = true) {
+    threeBumpers: function(left = true) {
         // calculate bumper positions
         let p1 = {
             x: CFG.AREA.border + (left ? CFG.AREA.width / 4 : CFG.AREA.width * 3 / 4),
@@ -57,7 +57,7 @@ var SpawnFn = {
      *        B        *
      *                 *
      * B             B */
-    spawn_fiveBumpers: function() {
+    fiveBumpers: function() {
         // calculate bumper positions
         let p1 = {
             x: CFG.AREA.border + CFG.AREA.width / 4,
@@ -110,7 +110,7 @@ var SpawnFn = {
      *                 *
      *                 *
      * B             B */
-    spawn_fourBumpers: function() {
+    fourBumpers: function() {
         // calculate bumper positions
         let p1 = {
             x: CFG.AREA.border + CFG.AREA.width / 4,
@@ -145,7 +145,7 @@ var SpawnFn = {
             {type: 'bumper', obj: b5}
         ]
         
-        height = 400
+        height = 500
         
         return {objects, height}
     },
@@ -156,7 +156,7 @@ var SpawnFn = {
      * B      B      B *
      *                 *
      *                 */
-    spawn_threeBumpersLine: function() {
+    threeBumpersLine: function() {
         // calculate bumper positions
         let p1 = {
             x: CFG.AREA.border + CFG.BUMPER.width,
@@ -195,7 +195,7 @@ var SpawnFn = {
      * B      B      B *
      *                 *
      *                 */
-    spawn_twoBumpersLine: function() {
+    twoBumpersLine: function() {
         // calculate bumper positions
         let p1 = {
             x: CFG.AREA.border + CFG.AREA.width / 4,
@@ -222,13 +222,40 @@ var SpawnFn = {
         return {objects, height}
     },
     
+    /*                 *
+     *                 *
+     *                 *
+     *        B        *
+     *                 *
+     *                 */
+    oneBumper: function() {
+        // calculate bumper positions
+        let p1 = {
+            x: CFG.AREA.border + CFG.AREA.width / 2,
+            y: CFG.HEIGHT + 100
+        }
+        
+        // setup and add bumpers to game
+        let b1 = new Bumper()
+        b1.resetTo(p1.x, p1.y)
+        
+        // pack objects
+        let objects = [
+            {type: 'bumper', obj: b1}
+        ]
+        
+        height = 300
+        
+        return {objects, height}
+    },
+    
     /* S               *
      * SS              *
      * SSS             *
      * SSSS            *
      *  SSSS           *
      *    SSS          */
-    spawn_slingshot: function(left = true) {
+    slingshot: function(left = true) {
         /// TODO: collision with right slingshots doesn't work currently
         left = true
         
@@ -256,7 +283,7 @@ var SpawnFn = {
      * SSSS        B   *
      *  SSSS           *
      *    SSS          */
-    spawn_slingshotBumper: function() {
+    slingshotBumper: function() {
         // calculate positions
         let sling = {
             x: CFG.AREA.border,
@@ -285,7 +312,7 @@ var SpawnFn = {
         return objects
     },
     
-    spawn_powerupTime: function(value) {
+    powerupTime: function(value) {
         let power = {
             type: 'powerup',
             obj: new PowerUp({time: value, speed: 0}) // or via PowerUp.TYPE
