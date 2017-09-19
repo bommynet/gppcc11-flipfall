@@ -5,7 +5,7 @@ function Game() {
 }
 
 // important values as static fields
-Game.TIMER_MAX = 30
+Game.TIMER_MAX = 3//30
 
 // inherits from Phaser.State
 Game.prototype = Object.create(Phaser.State)
@@ -33,6 +33,11 @@ Game.prototype = Object.create(Phaser.State)
         this.bumpers = []
         this.powerups = []
         this.slingshots = []
+        
+        this.gameover = {
+            game: game.add.sprite(0, 0, 'gameover', 0),
+            over: game.add.sprite(0, 0, 'gameover', 2)
+        }
         
         this.btnSound = game.add.button(
             CFG.WIDTH - 10, CFG.HEIGHT - 10, 'btn_sound',
@@ -97,6 +102,10 @@ Game.prototype = Object.create(Phaser.State)
         this.slingshots.forEach(obj => obj.destroy(), this)
         this.slingshots = []
         
+        this.gameover.game.reset(0, 0)
+        this.gameover.game.alpha = 0
+        this.gameover.over.reset(CFG.AREA.border + CFG.AREA.width - 163, CFG.HEIGHT - 59)
+        this.gameover.over.alpha = 0
         this.startBar.visible = true
         
         // setup basic variables
@@ -296,6 +305,7 @@ Game.prototype = Object.create(Phaser.State)
             /// TODO: game ends
             this.isGameStarted = false
             this.timer = 0
+            this.gameIsOver()
         } else {
             this.timer -= deltaTime
         }
@@ -314,8 +324,33 @@ Game.prototype = Object.create(Phaser.State)
     },
 
     // change game state
-    p.gotoNextState = function() {
-        this.game.state.start("GameOver")
+    p.gameIsOver = function() {
+        // let fly in 'game' and 'over'
+        // then flash screen
+        let twGame = game.tweens.create(this.gameover.game)
+        let twOver = game.tweens.create(this.gameover.over)
+        
+        let tweenTime = 250
+        let flashTime = 250
+        
+        twGame.to({
+            x: CFG.AREA.border + (CFG.AREA.width - 202)/2,
+            y: CFG.AREA.border + (CFG.AREA.height - 59)/2 - 33,
+            alpha: 1
+        }, tweenTime)
+        twOver.to({
+            x: CFG.AREA.border + (CFG.AREA.width - 202)/2,
+            y: CFG.AREA.border + (CFG.AREA.height - 59)/2 + 33,
+            alpha: 1
+        }, tweenTime)
+        
+        twOver.onComplete.add(() => {
+            game.camera.flash(0xffffff, flashTime)
+        }, this)
+        
+        twGame.start()
+        twOver.start()
+        //this.game.state.start("GameOver")
     }
     
 }(Game.prototype))
