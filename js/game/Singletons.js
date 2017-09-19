@@ -147,6 +147,9 @@ var Spawner = {
      *  SSSS           *
      *    SSS          */
     spawn_slingshot: function(left = true) {
+        /// TODO: collision with right slingshots doesn't work currently
+        left = true
+        
         // calculate slingshot position
         let p = {
             x: CFG.AREA.border + (left ? 0 : CFG.AREA.width - 128),

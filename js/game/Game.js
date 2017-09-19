@@ -48,7 +48,10 @@ Game.prototype = Object.create(Phaser.State)
                 }
             }, this, 1, 1, 1)
         this.btnSound.anchor.setTo(1, 1)
-        this.btnSound.setFrames(1, 1, 1)
+        if(CFG.SOUND.volume > 0)
+            this.btnSound.setFrames(1, 1, 1)
+        else
+            this.btnSound.setFrames(0, 0, 0)
         
         // create gui
         this.gui = {
@@ -258,15 +261,16 @@ Game.prototype = Object.create(Phaser.State)
             // check if player is near the slingshot
             if(slingshot.possibleCollisionWithPlayer(this.player)) {
                 
-                // check if player collides with slingshot nodes
-                let nrm = slingshot.collideWithNodes(this.player)
+                // check if player collides with shooting area
+                let nrm = slingshot.collideWithShot(this.player)
                 if(nrm) {
-//                    console.log("SLINGSHOT")
-//                    let force = new Phaser.Point()
-//                    force.copyFrom(nrm)
-//                    force.multiply(1000, -1000)
-//
-//                    Gravitation.applyForce(force.x, force.y)
+                    Gravitation.applyForce(nrm.x * 1000, nrm.y * 1000)
+                    return
+                }
+                
+                // check if player collides with slingshot nodes
+                nrm = slingshot.collideWithNodes(this.player)
+                if(nrm) {
                     Gravitation.vel.x *= -0.5
                     Gravitation.vel.y *= -0.5
                 }

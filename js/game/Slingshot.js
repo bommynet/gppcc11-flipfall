@@ -12,6 +12,8 @@ function Slingshot(left = true) {
     //this.a = {x1: 10, y1: 14, x2:  10, y2: 113}
     this.c = {x1: 37, y1:  7, x2: 119, y2: 172}
     
+    this.shootingVector = new Phaser.Point(165,-82).normalize()
+    
     this.isDead = false
     
     game.add.existing(this)
@@ -111,26 +113,32 @@ Slingshot.prototype.collideWithNodes = function(player) {
 // check if player collides with slingshots shooting area
 // (returns normalized shooting vector on collision or null)
 Slingshot.prototype.collideWithShot = function(player) {
-    let start = {
-        x: this.x + (this.alignLeft ? this.c.x1 : this.width - this.c.x1),
-        y: this.y + this.c.y1
-    }
-    let end = {
-        x: this.x + (this.alignLeft ? this.c.x2 : this.width - this.c.x2),
-        y: this.y + this.c.y2
-    }
+    let start = new Bommy.Vector2(
+        this.x + (this.alignLeft ? this.c.x1 : this.width - this.c.x1),
+        this.y + this.c.y1
+    )
+    let end = new Bommy.Vector2(
+        this.x + (this.alignLeft ? this.c.x2 : this.width - this.c.x2),
+        this.y + this.c.y2
+    )
     
     // create values for better readability
-    let circle = {
-        x: player.position.x,
-        y: player.position.y
-    }
+    let circle = new Bommy.Vector2(
+        player.position.x,
+        player.position.y
+    )
     let radius = player.radius
     
     // check for collision
     if(Bommy.Collision.lineCircle(start, end, circle, radius)) {
         /// TODO: create shooting direction vector
-        let nrm = Phaser.Point.(1,0) 
+        console.log("start -> end: true")
+        return this.shootingVector
+    }
+    if(Bommy.Collision.lineCircle(end, start, circle, radius)) {
+        /// TODO: create shooting direction vector
+        console.log("end -> start: true")
+        let nrm = Phaser.Point(1,0)
         return nrm
     }
     

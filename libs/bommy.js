@@ -73,7 +73,6 @@
             
             // 3.) determine L
             let L = new Bommy.Vector2(0, C_.y) // 0 because S=(0,0) is the origin
-            console.table({E_, C_, L})
             
             // check if L is near E_ -> else there can't be a collision
             if(L.y < -radius || L.y > E_.y + radius)
