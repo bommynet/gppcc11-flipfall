@@ -24,6 +24,9 @@
     }
     
     
+    
+    
+    
     //#########################################################################
     //### Collisions ##########################################################
     //#########################################################################
@@ -32,46 +35,74 @@
         // check for collision between a line and a circle
         lineCircle: function(start, end, circle, radius) {
             
-            // calculate with squared values to avoid squareroots
+            // 1. translate all vectors by -start (move origin)
+            // 2. translate end and circle by alpha (end is perpendicular to x-axis)
+            // 3. determine point L with x=0 and y=C.y
+            // 4. check if circles L'=(L, 0) and C'=(C,radius) collide
+            
+            
+            // 1.) translate vectors: -start
+            /// let S = (0,0) // 'cause S = start - start
+            let E = new Bommy.Vector2(end.x - start.x, end.y - start.y)
+            let C = new Bommy.Vector2(circle.x - start.x, circle.y - start.y)
+            
+            
+            // 2.) translate E and C by alpha
+            // 2.i) create helper vector H to calculate angle
+            let H = new Bommy.Vector2(0, E.y)
+            
+            // 2.ii) calculate alpha from H and E
+            let dotEH = E.x * H.x + E.y * H.y
+            let lenE = Math.sqrt(Math.pow(E.x,2) + Math.pow(E.y,2))
+            let lenH = Math.sqrt(Math.pow(H.x,2) + Math.pow(H.y,2))
+            
+            let cosAlpha = dotEH / (lenE * lenH)
+            let alpha = Math.acos(cosAlpha)
+            let sinAlpha = Math.sin(alpha)
+            
+            
+            // 2.iii) rotate E and C
+            let x_ = cosAlpha * E.x - sinAlpha * E.y
+            let y_ = sinAlpha * E.x + cosAlpha * E.y
+            let E_ = new Bommy.Vector2(x_, y_)
+            
+            x_ = cosAlpha * C.x - sinAlpha * C.y
+            y_ = sinAlpha * C.x + cosAlpha * C.y
+            let C_ = new Bommy.Vector2(x_, y_)
+            
+            
+            // 3.) determine L
+            let L = new Bommy.Vector2(0, C_.y) // 0 because S=(0,0) is the origin
+            console.table({E_, C_, L})
+            
+            // check if L is near E_ -> else there can't be a collision
+            if(L.y < -radius || L.y > E_.y + radius)
+                return false
+            
+            
+            // 4.) check if circles collide
+            let distanceSq = Math.pow(L.x - C_.x, 2) + Math.pow(L.y - C_.y, 2)
             let radiusSq = Math.pow(radius, 2)
             
-            // calculate vector (start - circle) and it's squared length
-            let sSubC = {
-                x: start.x - circle.x,
-                y: start.y - circle.y
-            }
-            let sSubCSq = Math.pow(sSubC.x, 2) + Math.pow(sSubC.y, 2)
-            
-            // check wether start lies within circle
-            if(sSubCSq <= radiusSq)
+            if(distanceSq <= radiusSq)
                 return true
             
-            // calculate line direction and it's squared length
-            let lineDir = {
-                x: start.x - end.x,
-                y: start.y - end.y
-            }
-            let lineDirSq = Math.pow(lineDir.x, 2) + Math.pow(lineDir.y, 2)
+            return false
+        }
+        
+    }
+    
+    
+    let Vector2 = function(x, y) {
+        
+        this.x = x
+        this.y = y
             
-            // calculate dot product of direction and translated start
-            let dotDS = lineDir.x * sSubC.x + lineDir.y * sSubC.y
-            
-            // calculate discriminant
-            let disc = Math.pow(dotDS, 2) - lineDirSq * (sSubCSq - radiusSq)
-            
-            /* 1. negative disc -> no collision
-             * 2. positive disc -> check wether (-dotDS - sqrt(disc)) / lineDirSq is in [0,1]
-             */
-            if(disc < 0)
-                return false
-            else {
-                let intersection = (-dotDS - Math.sqrt(disc)) / lineDirSq
-                
-                if(intersection < 0 || intersection > 1)
-                    return false
-                else
-                    return true
-            }
+        this.add = function(vec1, vec2) {
+            return new Vector2(
+                this.x + vec2.x,
+                this.y + vec2.y
+            )
         }
         
     }
@@ -79,6 +110,7 @@
     
     root.Bommy = {
         Random,
+        Vector2,
         Collision
     }
     
