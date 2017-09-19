@@ -38,4 +38,7 @@ Bumper.prototype.hit = function() {
     
     // play sound
     game.sound.play('a_bumper', CFG.SOUND.volume)
+    
+    // screen shake
+    game.camera.shake(2 / CFG.WIDTH, 50)
 }

@@ -325,6 +325,9 @@ Game.prototype = Object.create(Phaser.State)
 
     // change game state
     p.gameIsOver = function() {
+        // stop player animation
+        this.player.animations.stop()
+        
         // let fly in 'game' and 'over'
         // then flash screen
         let twGame = game.tweens.create(this.gameover.game)
@@ -347,6 +350,10 @@ Game.prototype = Object.create(Phaser.State)
         twOver.onComplete.add(() => {
             game.camera.flash(0xffffff, flashTime)
         }, this)
+        
+        // game over should show over all other sprites
+        this.gameover.game.bringToTop()
+        this.gameover.over.bringToTop()
         
         twGame.start()
         twOver.start()
