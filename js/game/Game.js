@@ -238,8 +238,10 @@ Game.prototype = Object.create(Phaser.State)
                 // update score
                 Score.add(Score.SCORE_BUMPER)
                 
-                // reset factor
-                Score.resetFactor()
+                // change factor
+                /// tyr decreasing instead of reset
+                ///Score.resetFactor()
+                Score.changeFactor(-1)
                 this.gui.factor.flash()
                 
                 // let player bump of
@@ -355,8 +357,8 @@ Game.prototype = Object.create(Phaser.State)
                 // show 'press a key'
                 this.presskey = game.add.image(0, 0, 'presskey')
                 this.presskey.reset(
-                    (CFG.WIDTH - this.presskey.width) / 2,
-                    458
+                    CFG.AREA.border + (CFG.AREA.width - this.presskey.width) / 2,
+                    538
                 )
                 let tween = game.tweens.create(this.presskey)
                 tween.to({alpha: 0}, 700, Phaser.Easing.Exponential.In, true, 0, -1)

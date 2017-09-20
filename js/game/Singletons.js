@@ -118,7 +118,7 @@ var Score = {
     
     // other important values
     DISTANCE_FACTOR: 100,
-    FACTOR_INCREASE_DISTANCE: 1000,
+    FACTOR_INCREASE_DISTANCE: 500,
     FACTOR_MAX: 9,
     
     // variables
@@ -174,6 +174,18 @@ var Score = {
     // reset factor and restart counter
     resetFactor: function() {
         this.factor = 1
+        this.factor_next_inc_in = this.FACTOR_INCREASE_DISTANCE
+    },
+    
+    // add factor to current and restart counter
+    changeFactor: function(add_value) {
+        this.factor += add_value
+        
+        if(this.factor < 1)
+            this.factor = 1
+        else if(this.factor > this.FACTOR_MAX)
+            this.factor = this.FACTOR_MAX
+            
         this.factor_next_inc_in = this.FACTOR_INCREASE_DISTANCE
     }
 }
