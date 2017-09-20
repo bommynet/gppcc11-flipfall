@@ -347,9 +347,20 @@ Game.prototype = Object.create(Phaser.State)
             alpha: 1
         }, tweenTime)
         
+        
+        // after animation a key press will lead to menu screen
+        game.camera.onFlashComplete.addOnce(() => {
+            game.input.keyboard.onDownCallback = () => {
+                game.input.keyboard.onDownCallback = null
+                game.state.start("Menu")
+            }
+        }, this)
+        
+        // after tweening 'game' and 'over' the screen will flash
         twOver.onComplete.add(() => {
             game.camera.flash(0xffffff, flashTime)
         }, this)
+        
         
         // game over should show over all other sprites
         this.gameover.game.bringToTop()
@@ -357,7 +368,6 @@ Game.prototype = Object.create(Phaser.State)
         
         twGame.start()
         twOver.start()
-        //this.game.state.start("GameOver")
     }
     
 }(Game.prototype))
