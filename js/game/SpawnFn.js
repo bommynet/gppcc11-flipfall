@@ -345,12 +345,12 @@ var SpawnFn = {
         return objects
     },
     
-    powerupTime: function(value) {
+    powerupTime: function(x, y, value) {
         let power = {
             type: 'powerup',
             obj: new PowerUp({time: value, speed: 0}) // or via PowerUp.TYPE
         }
-        power.obj.resetTo(CFG.AREA.width * Math.random() + CFG.AREA.border, CFG.HEIGHT + 100)
+        power.obj.resetTo(x, y)
         
         return [power]
     }

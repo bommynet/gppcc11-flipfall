@@ -68,6 +68,7 @@ var Spawner = {
     DISTANCE: 500,
     spawnDistance: 0,
     fnSet: [],
+    powerupSpawnCounter: 5,
     
     // reset variables for a new game
     reset: function(spawntime) {
@@ -100,6 +101,19 @@ var Spawner = {
             let res = fnSpawn(Phaser.Utils.chanceRoll(50))
             this.spawnDistance = res.height
             
+            this.powerupSpawnCounter--
+            if(this.powerupSpawnCounter < 0) {
+                let power = SpawnFn.powerupTime(
+                    CFG.AREA.border + CFG.AREA.width * Math.random(),
+                    CFG.HEIGHT,
+                    5
+                )
+                
+                res.objects.push(power[0])
+                
+                this.powerupSpawnCounter = 5
+            }
+            
             return res.objects
         }
     }
@@ -119,7 +133,7 @@ var Score = {
     // other important values
     DISTANCE_FACTOR: 100,
     FACTOR_INCREASE_DISTANCE: 500,
-    FACTOR_MAX: 9,
+    FACTOR_MAX: 100,//9,
     
     // variables
     score: 0,
