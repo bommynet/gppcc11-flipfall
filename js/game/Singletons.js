@@ -228,20 +228,26 @@ var StartTimer = {
         this.image.visible = true
         this.image.bringToTop()
         
+        let width = 170 * 1.5
+        let height = 77 * 1.5
+        
+        this.image.width = width
+        this.image.height = height
+        
         // create countdown (3..2..1..GO)
         let tween3 = game.tweens.create(this.image)
-            .to({ width: 150, height: 96, alpha: 0.2 }, 1000, Phaser.Easing.Linear.None, false)
+            .to({ width: width/2, height: height/2, alpha: 0.2 }, 1000, Phaser.Easing.Linear.None, false)
         let tween2 = game.tweens.create(this.image)
-            .to({ width: 150, height: 96, alpha: 0.2 }, 1000, Phaser.Easing.Linear.None, false)
+            .to({ width: width/2, height: height/2, alpha: 0.2 }, 1000, Phaser.Easing.Linear.None, false)
         let tween1 = game.tweens.create(this.image)
-            .to({ width: 150, height: 96, alpha: 0.2 }, 1000, Phaser.Easing.Linear.None, false)
+            .to({ width: width/2, height: height/2, alpha: 0.2 }, 1000, Phaser.Easing.Linear.None, false)
         let tweenGO = game.tweens.create(this.image)
             .to({ alpha: 0 }, 1000, Phaser.Easing.Linear.None, false, 1000)
         
         // reset image after each partial tween and start following
         tween3.onComplete.add(() => {
-            this.image.width= 200
-            this.image.height = 130
+            this.image.width= width
+            this.image.height = height
             this.image.alpha = 1
             this.image.frame = 2
             
@@ -250,8 +256,8 @@ var StartTimer = {
             tween2.start()
         }, this)
         tween2.onComplete.add(() => {
-            this.image.width= 200
-            this.image.height = 130
+            this.image.width= width
+            this.image.height = height
             this.image.alpha = 1
             this.image.frame = 1
             
@@ -260,8 +266,8 @@ var StartTimer = {
             tween1.start()
         }, this)
         tween1.onComplete.add(() => {
-            this.image.width= 200
-            this.image.height = 130
+            this.image.width= width
+            this.image.height = height
             this.image.alpha = 1
             this.image.frame = 0
             this.isActive = false
@@ -272,8 +278,8 @@ var StartTimer = {
             tweenGO.start()
         }, this)
         tweenGO.onComplete.add(() => {
-            this.image.width= 200
-            this.image.height = 130
+            this.image.width= width
+            this.image.height = height
             this.image.frame = 3
             this.image.visible = false
         }, this)
