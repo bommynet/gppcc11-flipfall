@@ -25,7 +25,7 @@ Title.prototype = Object.create(Phaser.State)
         game.input.keyboard.onDownCallback = () => {
             // lets bounce title text to new position
             let tweenOut = game.tweens.create(this.title.sprite)
-            tweenOut.to({y: (CFG.HEIGHT - CFG.TITLE.height) / 2 - 150}, 1500, Phaser.Easing.Elastic.Out)
+            tweenOut.to({y: (CFG.HEIGHT - CFG.TITLE.height) / 2 - 150}, 500, Phaser.Easing.Elastic.Out)
 
             // after animation, switch screen
             tweenOut.onComplete.add(() => this.game.state.start("Menu"), this)

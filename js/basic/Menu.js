@@ -26,12 +26,12 @@ Menu.prototype = Object.create(Phaser.State)
         
         game.input.keyboard.onDownCallback = () => {
             let tweenOut = game.tweens.create(this.title.sprite)
-            tweenOut.to({x: 480, y: 12}, 1000, Phaser.Easing.Quadratic.In)
+            tweenOut.to({x: 480, y: 12}, 500, Phaser.Easing.Quadratic.In)
             
             let tweenBG = game.tweens.create(this.background)
             let tweenBGT = game.tweens.create(this.backgroundTransition)
-            tweenBG.to({y: CFG.HEIGHT}, 1000, Phaser.Easing.Linear.None)
-            tweenBGT.to({y: 0}, 1000, Phaser.Easing.Linear.None)
+            tweenBG.to({y: CFG.HEIGHT}, 500, Phaser.Easing.Linear.None)
+            tweenBGT.to({y: 0}, 500, Phaser.Easing.Linear.None)
             
             tweenOut.onComplete.add(() => this.game.state.start("Game"), this)
             tweenOut.start()
