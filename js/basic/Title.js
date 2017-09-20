@@ -22,6 +22,15 @@ Title.prototype = Object.create(Phaser.State)
         this.background = game.add.image(0, 0, "bg_title")
         this.title = new GuiTitle((CFG.WIDTH - CFG.TITLE.width) / 2, (CFG.HEIGHT - CFG.TITLE.height) / 2 - 50)
         
+        this.presskey = game.add.image(0, 0, 'presskey')
+        this.presskey.reset(
+            (CFG.WIDTH - this.presskey.width) / 2,
+            458
+        )
+        let tween = game.tweens.create(this.presskey)
+        tween.to({alpha: 0}, 700, Phaser.Easing.Exponential.In, true, 0, -1)
+        tween.yoyo(true)
+        
         game.input.keyboard.onDownCallback = () => {
             // lets bounce title text to new position
             let tweenOut = game.tweens.create(this.title.sprite)

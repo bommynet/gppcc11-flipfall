@@ -350,10 +350,24 @@ Game.prototype = Object.create(Phaser.State)
         
         // after animation a key press will lead to menu screen
         game.camera.onFlashComplete.addOnce(() => {
-            game.input.keyboard.onDownCallback = () => {
-                game.input.keyboard.onDownCallback = null
-                game.state.start("Menu")
-            }
+            // delay user input after game over (to avoid screen 'jumping')
+            setTimeout(function() {
+                // show 'press a key'
+                this.presskey = game.add.image(0, 0, 'presskey')
+                this.presskey.reset(
+                    (CFG.WIDTH - this.presskey.width) / 2,
+                    458
+                )
+                let tween = game.tweens.create(this.presskey)
+                tween.to({alpha: 0}, 700, Phaser.Easing.Exponential.In, true, 0, -1)
+                tween.yoyo(true)
+                
+                // handle keypress
+                game.input.keyboard.onDownCallback = () => {
+                    game.input.keyboard.onDownCallback = null
+                    game.state.start("Menu")
+                }
+            }, 1000)
         }, this)
         
         // after tweening 'game' and 'over' the screen will flash
